@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{7FF44E2C-BAE2-4A4D-A1B3-38C6916E789D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{BFD5A0AA-E96A-49E5-8CCB-480FA13393EC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FF44E2C-BAE2-4A4D-A1B3-38C6916E789D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FF44E2C-BAE2-4A4D-A1B3-38C6916E789D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FF44E2C-BAE2-4A4D-A1B3-38C6916E789D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FF44E2C-BAE2-4A4D-A1B3-38C6916E789D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFD5A0AA-E96A-49E5-8CCB-480FA13393EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFD5A0AA-E96A-49E5-8CCB-480FA13393EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFD5A0AA-E96A-49E5-8CCB-480FA13393EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFD5A0AA-E96A-49E5-8CCB-480FA13393EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7494A117-E8B6-4E31-9D53-78260876ADC3}
+	EndGlobalSection
+EndGlobal
