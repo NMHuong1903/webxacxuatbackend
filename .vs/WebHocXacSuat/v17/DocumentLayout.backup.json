@@ -1,36 +1,7 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\maekj\\OneDrive\\Desktop\\New folder\\WebHocXacSuat\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{7FF44E2C-BAE2-4A4D-A1B3-38C6916E789D}|WebAPI\\WebAPI.csproj|c:\\users\\maekj\\onedrive\\desktop\\new folder\\webhocxacsuat\\webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7FF44E2C-BAE2-4A4D-A1B3-38C6916E789D}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7FF44E2C-BAE2-4A4D-A1B3-38C6916E789D}|WebAPI\\WebAPI.csproj|c:\\users\\maekj\\onedrive\\desktop\\new folder\\webhocxacsuat\\webapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{7FF44E2C-BAE2-4A4D-A1B3-38C6916E789D}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7FF44E2C-BAE2-4A4D-A1B3-38C6916E789D}|WebAPI\\WebAPI.csproj|c:\\users\\maekj\\onedrive\\desktop\\new folder\\webhocxacsuat\\webapi\\controllers\\studentexamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7FF44E2C-BAE2-4A4D-A1B3-38C6916E789D}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\studentexamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7FF44E2C-BAE2-4A4D-A1B3-38C6916E789D}|WebAPI\\WebAPI.csproj|c:\\users\\maekj\\onedrive\\desktop\\new folder\\webhocxacsuat\\webapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7FF44E2C-BAE2-4A4D-A1B3-38C6916E789D}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BFD5A0AA-E96A-49E5-8CCB-480FA13393EC}|Shared\\Shared.csproj|c:\\users\\maekj\\onedrive\\desktop\\new folder\\webhocxacsuat\\shared\\models\\question.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BFD5A0AA-E96A-49E5-8CCB-480FA13393EC}|Shared\\Shared.csproj|solutionrelative:shared\\models\\question.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7FF44E2C-BAE2-4A4D-A1B3-38C6916E789D}|WebAPI\\WebAPI.csproj|c:\\users\\maekj\\onedrive\\desktop\\new folder\\webhocxacsuat\\webapi\\controllers\\questioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7FF44E2C-BAE2-4A4D-A1B3-38C6916E789D}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\questioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7FF44E2C-BAE2-4A4D-A1B3-38C6916E789D}|WebAPI\\WebAPI.csproj|c:\\users\\maekj\\onedrive\\desktop\\new folder\\webhocxacsuat\\webapi\\migrations\\20250421113107_8.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7FF44E2C-BAE2-4A4D-A1B3-38C6916E789D}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\migrations\\20250421113107_8.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "WorkspaceRootPath": "C:\\Users\\thanh\\Desktop\\New folder (2)\\BE\\webxacxuatbackend\\",
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -38,92 +9,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 180,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": -1,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\maekj\\OneDrive\\Desktop\\New folder\\WebHocXacSuat\\WebAPI\\appsettings.json",
-              "RelativeDocumentMoniker": "WebAPI\\appsettings.json",
-              "ToolTip": "C:\\Users\\maekj\\OneDrive\\Desktop\\New folder\\WebHocXacSuat\\WebAPI\\appsettings.json",
-              "RelativeToolTip": "WebAPI\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-05-08T01:20:10.724Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\maekj\\OneDrive\\Desktop\\New folder\\WebHocXacSuat\\WebAPI\\Program.cs",
-              "RelativeDocumentMoniker": "WebAPI\\Program.cs",
-              "ToolTip": "C:\\Users\\maekj\\OneDrive\\Desktop\\New folder\\WebHocXacSuat\\WebAPI\\Program.cs",
-              "RelativeToolTip": "WebAPI\\Program.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABkAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T03:46:40.334Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Question.cs",
-              "DocumentMoniker": "C:\\Users\\maekj\\OneDrive\\Desktop\\New folder\\WebHocXacSuat\\Shared\\Models\\Question.cs",
-              "RelativeDocumentMoniker": "Shared\\Models\\Question.cs",
-              "ToolTip": "C:\\Users\\maekj\\OneDrive\\Desktop\\New folder\\WebHocXacSuat\\Shared\\Models\\Question.cs",
-              "RelativeToolTip": "Shared\\Models\\Question.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAABAAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-23T03:53:42.892Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "QuestionController.cs",
-              "DocumentMoniker": "C:\\Users\\maekj\\OneDrive\\Desktop\\New folder\\WebHocXacSuat\\WebAPI\\Controllers\\QuestionController.cs",
-              "RelativeDocumentMoniker": "WebAPI\\Controllers\\QuestionController.cs",
-              "ToolTip": "C:\\Users\\maekj\\OneDrive\\Desktop\\New folder\\WebHocXacSuat\\WebAPI\\Controllers\\QuestionController.cs",
-              "RelativeToolTip": "WebAPI\\Controllers\\QuestionController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-22T15:59:28.707Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "20250421113107_8.cs",
-              "DocumentMoniker": "C:\\Users\\maekj\\OneDrive\\Desktop\\New folder\\WebHocXacSuat\\WebAPI\\Migrations\\20250421113107_8.cs",
-              "RelativeDocumentMoniker": "WebAPI\\Migrations\\20250421113107_8.cs",
-              "ToolTip": "C:\\Users\\maekj\\OneDrive\\Desktop\\New folder\\WebHocXacSuat\\WebAPI\\Migrations\\20250421113107_8.cs",
-              "RelativeToolTip": "WebAPI\\Migrations\\20250421113107_8.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T11:31:08.013Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\maekj\\OneDrive\\Desktop\\New folder\\WebHocXacSuat\\WebAPI\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "WebAPI\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\maekj\\OneDrive\\Desktop\\New folder\\WebHocXacSuat\\WebAPI\\Controllers\\UserController.cs",
-              "RelativeToolTip": "WebAPI\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAIMAAAAAAAAAAAAswJIAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T04:42:08.535Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "StudentExamController.cs",
-              "DocumentMoniker": "C:\\Users\\maekj\\OneDrive\\Desktop\\New folder\\WebHocXacSuat\\WebAPI\\Controllers\\StudentExamController.cs",
-              "RelativeDocumentMoniker": "WebAPI\\Controllers\\StudentExamController.cs",
-              "ToolTip": "C:\\Users\\maekj\\OneDrive\\Desktop\\New folder\\WebHocXacSuat\\WebAPI\\Controllers\\StudentExamController.cs",
-              "RelativeToolTip": "WebAPI\\Controllers\\StudentExamController.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAAwEEAAABdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T04:34:35.466Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             }
           ]
         }
