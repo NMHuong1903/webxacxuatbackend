@@ -215,7 +215,23 @@
     "Parameters": [
       {
         "Name": "addUserModel",
-        "Type": "WebAPI.Controllers.AddUserModel",
+        "Type": "Shared.ModelAdd.UserAddModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.UserController",
+    "Method": "AdminUpdateUser",
+    "RelativePath": "api/User/admin-update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "Shared.Models.User",
         "IsRequired": true
       }
     ],
@@ -239,12 +255,34 @@
   },
   {
     "ContainingType": "WebAPI.Controllers.UserController",
-    "Method": "GetAllUsers",
-    "RelativePath": "api/User/get-all",
+    "Method": "GetAllUsersWithFilter",
+    "RelativePath": "api/User/get-all-with-filter",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "userSearchModel",
+        "Type": "Shared.SearchModel.UserSearchModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.UserController",
+    "Method": "GetPageDataUsersWithFilter",
+    "RelativePath": "api/User/get-page-data-with-filter",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userSearchModel",
+        "Type": "Shared.SearchModel.UserSearchModel",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -289,7 +327,7 @@
     "Parameters": [
       {
         "Name": "user",
-        "Type": "Shared.Models.User",
+        "Type": "Shared.ModelEdit.UserEditModel",
         "IsRequired": true
       }
     ],

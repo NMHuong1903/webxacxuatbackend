@@ -10,6 +10,8 @@ using System.Text;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Shared.ModelAdd;
 using Shared.ModelEdit;
+using Shared.SearchModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI.Controllers
 {
@@ -30,13 +32,80 @@ namespace WebAPI.Controllers
         }
 
         [Authorize(Policy = "Admin")]
-        [HttpGet("get-all")]
-        public async Task<IActionResult> GetAllUsers()
+        [HttpGet("get-all-with-filter")]
+        public async Task<IActionResult> GetAllUsersWithFilter(UserSearchModel userSearchModel)
         {
             try
             {
                 var users = await _userRepository.GetAllAsync();
+                if (userSearchModel.Id != Guid.Empty)
+                {
+                    users = users.Where(x => x.Id == userSearchModel.Id).ToList();
+                }
+                if (!string.IsNullOrEmpty(userSearchModel.FullName))
+                {
+                    users = users.Where(x => x.FullName.ToLower().Contains(userSearchModel.FullName.ToLower())).ToList();
+                }
+                if (!string.IsNullOrEmpty(userSearchModel.Email))
+                {
+                    users = users.Where(x => x.Email.ToLower().Contains(userSearchModel.Email.ToLower())).ToList();
+                }
+                if (!string.IsNullOrEmpty(userSearchModel.UserName))
+                {
+                    users = users.Where(x => x.UserName.ToLower().Contains(userSearchModel.UserName.ToLower())).ToList();
+                }
+                if (!string.IsNullOrEmpty(userSearchModel.Role))
+                {
+                    users = users.Where(x => x.Role == userSearchModel.Role).ToList();
+                }
                 return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [Authorize(Policy = "Admin")]
+        [HttpGet("get-page-data-with-filter")]
+        public async Task<IActionResult> GetPageDataUsersWithFilter(UserSearchModel userSearchModel)
+        {
+            try
+            {
+                int pageSize = 8; 
+                int pageIndex = userSearchModel.pageIndex;
+                int totalCount = 0;
+
+                var users = await _userRepository.GetAllAsync();
+                if (userSearchModel.Id != Guid.Empty)
+                {
+                    users = users.Where(x => x.Id == userSearchModel.Id).ToList();
+                }
+                if (!string.IsNullOrEmpty(userSearchModel.FullName))
+                {
+                    users = users.Where(x => x.FullName.ToLower().Contains(userSearchModel.FullName.ToLower())).ToList();
+                }
+                if (!string.IsNullOrEmpty(userSearchModel.Email))
+                {
+                    users = users.Where(x => x.Email.ToLower().Contains(userSearchModel.Email.ToLower())).ToList();
+                }
+                if (!string.IsNullOrEmpty(userSearchModel.UserName))
+                {
+                    users = users.Where(x => x.UserName.ToLower().Contains(userSearchModel.UserName.ToLower())).ToList();
+                }
+                if (!string.IsNullOrEmpty(userSearchModel.Role))
+                {
+                    users = users.Where(x => x.Role == userSearchModel.Role).ToList();
+                }
+                users = users.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                totalCount = users.Count();
+                return Ok(new
+                {
+                    users = users,
+                    pageIndex = pageIndex,
+                    pageSize = pageSize,
+                    totalCount = totalCount,
+                });
             }
             catch (Exception ex)
             {
