@@ -8,6 +8,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
+using Shared.ModelAdd;
+using Shared.ModelEdit;
 
 namespace WebAPI.Controllers
 {
@@ -43,7 +45,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddUser([FromBody] AddUserModel addUserModel)
+        public async Task<IActionResult> AddUser([FromBody] UserAddModel addUserModel)
         {
             try
             {
@@ -84,7 +86,32 @@ namespace WebAPI.Controllers
 
         [Authorize(Policy = "Student")]
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateUser([FromBody] User user)
+        public async Task<IActionResult> UpdateUser([FromBody] UserEditModel user)
+        {
+            try
+            {
+                var users = await _userRepository.GetAllAsync();
+                var userInDb = users.FirstOrDefault(x => x.Id == user.Id);
+                if (userInDb == null)
+                {
+                    return BadRequest("User not found in the database.");
+                }
+                userInDb.FullName = user.FullName;
+                userInDb.Email = user.Email;
+                userInDb.UserName = user.UserName;
+                userInDb.Password = user.Password;
+                await _userRepository.UpdateAsync(userInDb);
+                return Ok(new { message = "User updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [Authorize(Policy = "Admin")]
+        [HttpPut("admin-update")]
+        public async Task<IActionResult> AdminUpdateUser([FromBody] User user)
         {
             try
             {
@@ -203,14 +230,6 @@ namespace WebAPI.Controllers
 
     public class LoginRequest
     {
-        public string UserName { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-    }
-
-    public class AddUserModel
-    {
-        public string FullName { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
         public string UserName { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
     }
