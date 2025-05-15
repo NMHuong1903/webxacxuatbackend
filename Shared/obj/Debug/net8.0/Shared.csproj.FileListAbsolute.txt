@@ -33,3 +33,15 @@ C:\Users\thanh\Desktop\New folder (2)\BE\webxacxuatbackend\Shared\obj\Debug\net8
 C:\Users\thanh\Desktop\New folder (2)\BE\webxacxuatbackend\Shared\obj\Debug\net8.0\refint\Shared.dll
 C:\Users\thanh\Desktop\New folder (2)\BE\webxacxuatbackend\Shared\obj\Debug\net8.0\Shared.pdb
 C:\Users\thanh\Desktop\New folder (2)\BE\webxacxuatbackend\Shared\obj\Debug\net8.0\ref\Shared.dll
+D:\study\WebHocXacSuat\webxacxuatbackend\Shared\bin\Debug\net8.0\Shared.deps.json
+D:\study\WebHocXacSuat\webxacxuatbackend\Shared\bin\Debug\net8.0\Shared.dll
+D:\study\WebHocXacSuat\webxacxuatbackend\Shared\bin\Debug\net8.0\Shared.pdb
+D:\study\WebHocXacSuat\webxacxuatbackend\Shared\obj\Debug\net8.0\Shared.GeneratedMSBuildEditorConfig.editorconfig
+D:\study\WebHocXacSuat\webxacxuatbackend\Shared\obj\Debug\net8.0\Shared.AssemblyInfoInputs.cache
+D:\study\WebHocXacSuat\webxacxuatbackend\Shared\obj\Debug\net8.0\Shared.AssemblyInfo.cs
+D:\study\WebHocXacSuat\webxacxuatbackend\Shared\obj\Debug\net8.0\Shared.csproj.CoreCompileInputs.cache
+D:\study\WebHocXacSuat\webxacxuatbackend\Shared\obj\Debug\net8.0\Shared.sourcelink.json
+D:\study\WebHocXacSuat\webxacxuatbackend\Shared\obj\Debug\net8.0\Shared.dll
+D:\study\WebHocXacSuat\webxacxuatbackend\Shared\obj\Debug\net8.0\refint\Shared.dll
+D:\study\WebHocXacSuat\webxacxuatbackend\Shared\obj\Debug\net8.0\Shared.pdb
+D:\study\WebHocXacSuat\webxacxuatbackend\Shared\obj\Debug\net8.0\ref\Shared.dll

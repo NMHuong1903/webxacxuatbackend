@@ -1,0 +1,45 @@
+﻿@page "/userlist"
+@using Shared.Models
+
+<div>
+    <Row Gutter="8">
+        <Col Span="24">
+        <Space>
+            <SpaceItem>
+                thêm
+            </SpaceItem>
+            <SpaceItem>
+                Xóa
+            </SpaceItem>
+            <SpaceItem>
+                tìm theo tên
+            </SpaceItem>
+            <SpaceItem>
+                tìm theo role
+            </SpaceItem>
+        </Space>
+        </Col>
+    </Row>
+    <Row Gutter="8">
+        <Col Span="24">
+        <Table DataSource="@userList"
+               TItem="User"
+               Bordered
+               Total="TotalCount"
+               PageIndex="userSearchModel.pageIndex"
+               PageSize="8"
+               @bind-SelectedRows="selectedRows">
+            <ColumnDefinitions>
+                <Selection Key="@context.UserName" />
+                <Column @bind-Field="@context.FullName" Title="Họ tên" Width="120px"></Column>
+                <Column @bind-Field="@context.Email" Title="Email" Width="120px"></Column>
+                <Column @bind-Field="@context.UserName" Title="Tên đang nhập" Width="120px"></Column>
+                <Column @bind-Field="@context.Password" Title="Mật khẩu" Width="120px"></Column>
+                <Column @bind-Field="@context.Role" Title="Vai trò" Width="120px"></Column>
+            </ColumnDefinitions>
+        </Table>
+        </Col>
+    </Row>
+</div>
+
+

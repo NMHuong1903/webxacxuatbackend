@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\thanh\\Desktop\\New folder (2)\\BE\\webxacxuatbackend\\Shared\\Shared.csproj",
+      "projectUniqueName": "D:\\study\\WebHocXacSuat\\webxacxuatbackend\\Shared\\Shared.csproj",
       "projectName": "Shared",
-      "projectPath": "C:\\Users\\thanh\\Desktop\\New folder (2)\\BE\\webxacxuatbackend\\Shared\\Shared.csproj",
+      "projectPath": "D:\\study\\WebHocXacSuat\\webxacxuatbackend\\Shared\\Shared.csproj",
       "packagesPath": "C:\\Users\\thanh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\thanh\\Desktop\\New folder (2)\\BE\\webxacxuatbackend\\Shared\\obj\\",
+      "outputPath": "D:\\study\\WebHocXacSuat\\webxacxuatbackend\\Shared\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,6 +33,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

@@ -392,7 +392,7 @@
       }
     },
     "/api/User/get-all-with-filter": {
-      "get": {
+      "post": {
         "tags": [
           "User"
         ],
@@ -423,7 +423,7 @@
       }
     },
     "/api/User/get-page-data-with-filter": {
-      "get": {
+      "post": {
         "tags": [
           "User"
         ],
@@ -462,17 +462,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserAddModel"
+                "$ref": "#/components/schemas/UserAddEditModel"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserAddModel"
+                "$ref": "#/components/schemas/UserAddEditModel"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UserAddModel"
+                "$ref": "#/components/schemas/UserAddEditModel"
               }
             }
           }
@@ -493,17 +493,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserEditModel"
+                "$ref": "#/components/schemas/UserAddEditModel"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserEditModel"
+                "$ref": "#/components/schemas/UserAddEditModel"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UserEditModel"
+                "$ref": "#/components/schemas/UserAddEditModel"
               }
             }
           }
@@ -586,17 +586,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
+                "$ref": "#/components/schemas/LoginModel"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
+                "$ref": "#/components/schemas/LoginModel"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
+                "$ref": "#/components/schemas/LoginModel"
               }
             }
           }
@@ -679,7 +679,7 @@
         },
         "additionalProperties": false
       },
-      "LoginRequest": {
+      "LoginModel": {
         "type": "object",
         "properties": {
           "userName": {
@@ -849,29 +849,7 @@
         },
         "additionalProperties": false
       },
-      "UserAddModel": {
-        "type": "object",
-        "properties": {
-          "fullName": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "userName": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "UserEditModel": {
+      "UserAddEditModel": {
         "type": "object",
         "properties": {
           "id": {

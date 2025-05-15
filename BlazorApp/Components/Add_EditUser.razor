@@ -1,0 +1,23 @@
+﻿<Form Model="userAddEditModel"
+      OnFinish="OnFinish"
+      OnFinishFailed="OnFinishFailed"
+      LabelColSpan="6"
+      WrapperColSpan="12">
+    <FormItem Label="Tên đăng nhập">
+        <Input @bind-Value="@userAddEditModel.UserName" Placeholder="Nhập tên đăng nhập" />
+    </FormItem>
+    <FormItem Label="Mật khẩu">
+        <InputPassword @bind-Value="@userAddEditModel.Password" Placeholder="Nhập mật khẩu" />
+    </FormItem>
+    <FormItem Label="Họ tên">
+        <Input @bind-Value="@userAddEditModel.FullName" Placeholder="Nhập họ tên" />
+    </FormItem>
+    <FormItem Label="Email">
+        <Input @bind-Value="@userAddEditModel.Email" Placeholder="Nhập email" />
+    </FormItem>
+    <FormItem WrapperColOffset="6" WrapperColSpan="12">
+        <Button Type="ButtonType.Primary" HtmlType="submit" Loading="isLoading" Disabled="isLoading">
+            Tạo tài khoản
+        </Button>
+    </FormItem>
+</Form>

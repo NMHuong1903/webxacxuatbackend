@@ -215,7 +215,7 @@
     "Parameters": [
       {
         "Name": "addUserModel",
-        "Type": "Shared.ModelAdd.UserAddModel",
+        "Type": "Shared.ModelAddEdit.UserAddEditModel",
         "IsRequired": true
       }
     ],
@@ -257,7 +257,7 @@
     "ContainingType": "WebAPI.Controllers.UserController",
     "Method": "GetAllUsersWithFilter",
     "RelativePath": "api/User/get-all-with-filter",
-    "HttpMethod": "GET",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -273,7 +273,7 @@
     "ContainingType": "WebAPI.Controllers.UserController",
     "Method": "GetPageDataUsersWithFilter",
     "RelativePath": "api/User/get-page-data-with-filter",
-    "HttpMethod": "GET",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -295,7 +295,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "WebAPI.Controllers.LoginRequest",
+        "Type": "Shared.Models.LoginModel",
         "IsRequired": true
       }
     ],
@@ -327,7 +327,7 @@
     "Parameters": [
       {
         "Name": "user",
-        "Type": "Shared.ModelEdit.UserEditModel",
+        "Type": "Shared.ModelAddEdit.UserAddEditModel",
         "IsRequired": true
       }
     ],

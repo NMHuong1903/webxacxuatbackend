@@ -1,0 +1,50 @@
+﻿@page "/"
+
+<PageTitle>Đăng nhập</PageTitle>
+
+@using System.ComponentModel.DataAnnotations;
+@using System.Text.Json;
+@using System.ComponentModel
+@using System.Globalization
+@using AntDesign.Form.Locale
+@using BlazorApp.Components
+
+<div>
+<Row>
+    <Col Span="16" Offset="8" Style="padding-top: 10%">
+    <Form Model="loginModel"
+          OnFinish="OnFinish"
+          OnFinishFailed="OnFinishFailed"
+          LabelColSpan="4"
+          WrapperColSpan="8">
+        <FormItem> 
+            <Input @bind-Value="@loginModel.UserName" Placeholder="Nhập tên đăng nhập"/>
+        </FormItem>
+        <FormItem>
+            <InputPassword @bind-Value="@loginModel.Password" Placeholder="Nhập mật khẩu"/>
+        </FormItem>
+        <FormItem WrapperColOffset="4" WrapperColSpan="8">
+            <Button Type="ButtonType.Primary" HtmlType="submit" Loading="isLogin" Disabled="isLogin">
+                Đăng nhập
+            </Button>
+        </FormItem>
+        <FormItem WrapperColOffset="4" WrapperColSpan="12">
+            <span>
+                    Chưa có tài khoản? <Button Type="ButtonType.Link" Onclick="() => isAdd = true">Đăng ký</Button>
+            </span>
+        </FormItem>
+    </Form>
+    </Col>
+</Row>
+<Drawer Closable
+        Visible="isAdd"
+        Title='("Đăng ký tài khoản")'
+        Width="600">
+    <Template>
+            <Add_EditUser @ref="addEditUser"
+                          IsAdd = "@true">
+            </Add_EditUser>
+    </Template>
+</Drawer>
+</div>
+

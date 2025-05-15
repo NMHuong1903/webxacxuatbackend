@@ -8,10 +8,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
-using Shared.ModelAdd;
-using Shared.ModelEdit;
+using Shared.ModelAddEdit;
 using Shared.SearchModel;
 using Microsoft.EntityFrameworkCore;
+using Shared.ResponseModel;
 
 namespace WebAPI.Controllers
 {
@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
         }
 
         [Authorize(Policy = "Admin")]
-        [HttpGet("get-all-with-filter")]
+        [HttpPost("get-all-with-filter")]
         public async Task<IActionResult> GetAllUsersWithFilter(UserSearchModel userSearchModel)
         {
             try
@@ -67,7 +67,7 @@ namespace WebAPI.Controllers
         }
 
         [Authorize(Policy = "Admin")]
-        [HttpGet("get-page-data-with-filter")]
+        [HttpPost("get-page-data-with-filter")]
         public async Task<IActionResult> GetPageDataUsersWithFilter(UserSearchModel userSearchModel)
         {
             try
@@ -97,14 +97,13 @@ namespace WebAPI.Controllers
                 {
                     users = users.Where(x => x.Role == userSearchModel.Role).ToList();
                 }
-                users = users.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
                 totalCount = users.Count();
-                return Ok(new
+                users = users.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
+                return Ok(new UserResponseModel
                 {
-                    users = users,
-                    pageIndex = pageIndex,
-                    pageSize = pageSize,
-                    totalCount = totalCount,
+                    Users = users,
+                    TotalCount = totalCount,
                 });
             }
             catch (Exception ex)
@@ -114,7 +113,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddUser([FromBody] UserAddModel addUserModel)
+        public async Task<IActionResult> AddUser([FromBody] UserAddEditModel addUserModel)
         {
             try
             {
@@ -155,7 +154,7 @@ namespace WebAPI.Controllers
 
         [Authorize(Policy = "Student")]
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateUser([FromBody] UserEditModel user)
+        public async Task<IActionResult> UpdateUser([FromBody] UserAddEditModel user)
         {
             try
             {
@@ -209,7 +208,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        public async Task<IActionResult> Login([FromBody] LoginModel request)
         {
 
             List<User> users = await _userRepository.GetAllAsync();
@@ -295,11 +294,5 @@ namespace WebAPI.Controllers
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-    }
-
-    public class LoginRequest
-    {
-        public string UserName { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
     }
 }
