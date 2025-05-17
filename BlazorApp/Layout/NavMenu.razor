@@ -36,11 +36,14 @@
                 <MenuItem Key="6">
                     <Button Type="ButtonType.Text" OnClick="OnEditUser">Thông tin tài khoản</Button>
                 </MenuItem>
-                <MenuItem Key="6">
-                    <NavLink href="/userlist">
-                        <Button Type="ButtonType.Text">Quản lý người dùng</Button>
-                    </NavLink>
-                </MenuItem>
+                    @if (Role == "Admin")
+                    {
+                    <MenuItem Key="6">
+                        <NavLink href="/userlist">
+                            <Button Type="ButtonType.Text">Quản lý người dùng</Button>
+                        </NavLink>
+                    </MenuItem>
+                    }
                 <MenuItem Key="7">
                     <Button Type="ButtonType.Text" OnClick="Logout">Đăng xuất</Button>
                 </MenuItem>

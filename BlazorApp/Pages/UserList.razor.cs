@@ -33,6 +33,14 @@ namespace BlazorApp.Pages
         public string token = string.Empty;
         public bool isadd = false;
         public bool isedit = false;
+        string selectedRole = string.Empty;
+        string selectedName = string.Empty;
+        List<string> roles = new()
+        {
+            "Admin",
+            "Student",
+            "Teacher"
+        };
 
         protected override async Task OnInitializedAsync()
         {
@@ -198,6 +206,22 @@ namespace BlazorApp.Pages
             isadd = false;
             isedit = false;
             row = new User();
+        }
+
+        private async Task OnSelectRole()
+        {
+            userSearchModel.Role = selectedRole;
+            userSearchModel.pageIndex = 1;
+            await LoadToken();
+            await LoadData();
+        }
+
+        private async Task OnSelectFullName()
+        {
+            userSearchModel.FullName = selectedName;
+            userSearchModel.pageIndex = 1;
+            await LoadToken();
+            await LoadData();
         }
     }
 }

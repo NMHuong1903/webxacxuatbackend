@@ -10,10 +10,16 @@
                 <Button Danger Disabled="@(!selectedRows.Any())" OnClick="OnDeleteSelected">Xóa</Button>
             </SpaceItem>
             <SpaceItem>
-                tìm theo tên
+                <Search OnSearch="OnSelectFullName" @bind-Value="selectedName" Placeholder="Nhập họ tên" EnterButton="true"/>
             </SpaceItem>
             <SpaceItem>
-                tìm theo role
+                <Select DataSource="roles"
+                        TItemValue="string"
+                        TItem="string"
+                        @bind-Value="selectedRole"
+                        OnSelectedItemChanged="OnSelectRole"
+                        Placeholder="Chọn vai trò">
+                </Select>
             </SpaceItem>
         </Space>
         </Col>

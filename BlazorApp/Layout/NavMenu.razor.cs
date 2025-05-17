@@ -18,6 +18,7 @@ namespace BlazorApp.Layout
         public string UserName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
+        public string Role { get; set; } = string.Empty;
         public Guid UserId { get; set; } 
         public UserAddEditModel userAddEditModel = new UserAddEditModel();
 
@@ -47,6 +48,7 @@ namespace BlazorApp.Layout
             UserName = await JS.InvokeAsync<string>("sessionStorage.getItem", "username");
             Email = await JS.InvokeAsync<string>("sessionStorage.getItem", "email");
             Password = await JS.InvokeAsync<string>("sessionStorage.getItem", "password");
+            Role = await JS.InvokeAsync<string>("sessionStorage.getItem", "role");
         }
 
         private void OnEditUser()

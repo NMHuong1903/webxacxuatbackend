@@ -1,13 +1,3 @@
-# Ignore bin, obj, VS folders
-bin/
-obj/
 .vs/
-*.user
-*.suo
 
-# Ignore runtime config
-appsettings.Development.json
-
-# Others (if needed)
-*.db
 

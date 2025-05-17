@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
                 }
                 if (!string.IsNullOrEmpty(userSearchModel.FullName))
                 {
-                    users = users.Where(x => x.FullName.ToLower().Contains(userSearchModel.FullName.ToLower())).ToList();
+                    users = users.Where(x => x.FullName.ToLower().Contains(userSearchModel.FullName.Trim().ToLower())).ToList();
                 }
                 if (!string.IsNullOrEmpty(userSearchModel.Email))
                 {
@@ -83,7 +83,7 @@ namespace WebAPI.Controllers
                 }
                 if (!string.IsNullOrEmpty(userSearchModel.FullName))
                 {
-                    users = users.Where(x => x.FullName.ToLower().Contains(userSearchModel.FullName.ToLower())).ToList();
+                    users = users.Where(x => x.FullName.Trim().ToLower().Contains(userSearchModel.FullName.Trim().ToLower())).ToList();
                 }
                 if (!string.IsNullOrEmpty(userSearchModel.Email))
                 {
