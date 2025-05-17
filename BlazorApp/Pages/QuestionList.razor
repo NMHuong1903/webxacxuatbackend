@@ -1,10 +1,10 @@
-﻿@page "/userlist"
-@using Shared.Models
+﻿@page "/questionlist"
 @using BlazorApp.Components
 
-<PageTitle>Quản lý người dùng</PageTitle>
 
-<div>
+<PageTitle>Quản lý câu hỏi</PageTitle>
+
+@* <div>
     <Row Gutter="8" Style="margin-bottom: 8px">
         <Col Span="24">
         <Space>
@@ -12,7 +12,7 @@
                 <Button Danger Disabled="@(!selectedRows.Any())" OnClick="OnDeleteSelected">Xóa</Button>
             </SpaceItem>
             <SpaceItem>
-                <Search OnSearch="OnSelectFullName" @bind-Value="selectedName" Placeholder="Nhập họ tên" EnterButton="true"/>
+                <Search OnSearch="OnSelectFullName" @bind-Value="selectedName" Placeholder="Nhập họ tên" EnterButton="true" />
             </SpaceItem>
             <SpaceItem>
                 <Select DataSource="roles"
@@ -73,6 +73,4 @@
             </EditUserAdmin>
         </Template>
     </Drawer>
-</div>
-
-
+</div> *@

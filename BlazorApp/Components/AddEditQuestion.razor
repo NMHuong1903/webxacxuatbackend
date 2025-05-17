@@ -1,0 +1,26 @@
+﻿<Form Model="questionOptionView"
+      OnFinish="OnFinish"
+      OnFinishFailed="OnFinishFailed"
+      LabelColSpan="6"
+      WrapperColSpan="12">
+    <FormItem Label="Nội dung câu hỏi">
+        <Input @bind-Value="@questionOptionView.Content" Placeholder="Nhập nội dung câu hỏi"/>
+    </FormItem>
+    <FormItem Label="Lời giải">
+        <Input @bind-Value="@questionOptionView.Answer" Placeholder="Nhập lời giải" />
+    </FormItem>
+    <FormItem WrapperColOffset="6" WrapperColSpan="12">
+        @if (isAdd)
+        {
+            <Button Type="ButtonType.Primary" HtmlType="submit" Loading="isLoading" Disabled="isLoading">
+                Thêm câu hỏi
+            </Button>
+        }
+        else
+        {
+            <Button Type="ButtonType.Primary" HtmlType="submit" Loading="isLoading" Disabled="isLoading">
+                Cập nhật câu hỏi
+            </Button>
+        }
+    </FormItem>
+</Form>

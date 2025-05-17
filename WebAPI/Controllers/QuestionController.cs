@@ -96,6 +96,28 @@ namespace WebAPI.Controllers
             }
         }
 
+        [HttpPost("upload-image")]
+        public async Task<IActionResult> UploadImage([FromForm] IFormFile file)
+        {
+            Guid questionId = new Guid();
+            if (file == null || file.Length == 0)
+                return BadRequest("File không hợp lệ.");
+
+            var ext = Path.GetExtension(file.FileName);
+            var fileName = $"{questionId}{ext}";
+            var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "questions");
+
+            if (!Directory.Exists(folderPath))
+                Directory.CreateDirectory(folderPath);
+
+            var filePath = Path.Combine(folderPath, fileName);
+            using var stream = new FileStream(filePath, FileMode.Create);
+            await file.CopyToAsync(stream);
+
+            var url = $"/images/questions/{fileName}";
+            return Ok(new { url });
+        }
+
         [Authorize(Policy = "Teacher")]
         [HttpPut("update")]
         public async Task<IActionResult> UpdateQuestion([FromBody] QuestionOptionView questionOptipnView)

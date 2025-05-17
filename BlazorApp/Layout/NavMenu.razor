@@ -2,49 +2,114 @@
 
 <div>
     <Row Gutter="16" Style="display: flex; align-items: center;">
-        <Col Span="6" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
+        <Col Span="5" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
         <h2 style="text-decoration: underline">
             TRACNGHIEMXSTK
         </h2>
         </Col>
-        <Col Span="4" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
+        <Col Span="3" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
         <Menu Style="display: flex; flex-direction: row; flex-wrap: wrap;" Mode=MenuMode.Horizontal>
-            <SubMenu Key="sub1" Title="Học tập">
-                <MenuItem Key="1">Lớp 12</MenuItem>
-                <MenuItem Key="2">Lớp 11</MenuItem>
-                <MenuItem Key="3">Lớp 10</MenuItem>
+            <SubMenu Key="sub1" Title="Lớp 12">
+                <SubMenu Key="sub2" Title="Xác suất">
+                    <MenuItem Key="6">
+                        Bài 1. Xác suất có điều kiện
+                    </MenuItem>
+                    <MenuItem Key="7">
+                        Bài 2. Công thức xác suất toàn phần 
+                    </MenuItem>
+                </SubMenu>
+                <SubMenu Key="sub3" Title="Thống kê">
+                    <MenuItem Key="8">
+                        Bài 1. Khoảng biến thiên và khoảng tứ phân vị
+                    </MenuItem>
+                    <MenuItem Key="9">
+                        Bài 2.Phương sai và độ lệch chuẩn
+                    </MenuItem>
+                </SubMenu>
+            </SubMenu>
+        </Menu>
+        </Col>
+        <Col Span="3" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
+        <Menu Style="display: flex; flex-direction: row; flex-wrap: wrap;" Mode=MenuMode.Horizontal>
+            <SubMenu Key="sub4" Title="Lớp 11">
+                <SubMenu Key="sub5" Title="Xác suất">
+                    <MenuItem Key="10">
+                        Bài 1. Biến cố hợp,biến cố giao,biến cố độc lập
+                    </MenuItem>
+                    <MenuItem Key="11">
+                        Bài 2.Công thức cộng xác suất.
+                    </MenuItem>
+                    <MenuItem Key="12">
+                        Bài 3. Công thức nhân xác suất cho 2 biến cố độc lập
+                    </MenuItem>
+                </SubMenu>
+                <SubMenu Key="sub6" Title="Thống kê">
+                    <MenuItem Key="13">
+                        Bài 1.Mẫu số liệu ghép nhóm
+                    </MenuItem>
+                    <MenuItem Key="14">
+                        Bài 2.Các số đặc trưng đo xu thế trung tâm
+                    </MenuItem>
+                </SubMenu>
+            </SubMenu>
+        </Menu>
+        </Col>
+        <Col Span="3" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
+        <Menu Style="display: flex; flex-direction: row; flex-wrap: wrap;" Mode=MenuMode.Horizontal>
+            <SubMenu Key="sub7" Title="Lớp 10">
+                <SubMenu Key="sub8" Title="Xác suất">
+                    <MenuItem Key="15">
+                        Bài 1.Không gian mẫu và biến cố
+                    </MenuItem>
+                    <MenuItem Key="16">
+                        Bài 2.Xác suất của biến cố
+                    </MenuItem>
+                </SubMenu>
+                <SubMenu Key="sub9" Title="Thống kê">
+                    <MenuItem Key="17">
+                        Bài 1.Các số đặc trưng đo xu thế trung tâm của mẫu số liệu
+                    </MenuItem>
+                    <MenuItem Key="18">
+                        Bài 2.Các số đặc trưng đo độ phân tán của mẫu số liệu
+                    </MenuItem>
+                </SubMenu>
             </SubMenu>
         </Menu>
         </Col>
         <Col Span="4" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
         <Menu Style="display: flex; flex-direction: row; flex-wrap: wrap;" Mode=MenuMode.Horizontal>
-            <SubMenu Key="sub4" Title="Kết quả học tập">
-            </SubMenu>
-        </Menu>
-        </Col>
-        <Col Span="4" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
-        <Menu Style="display: flex; flex-direction: row; flex-wrap: wrap;" Mode=MenuMode.Horizontal>
-            <SubMenu Key="sub2" Title="Đề thi">
-                <MenuItem Key="4">Option 1</MenuItem>
-                <MenuItem Key="5">Option 2</MenuItem>
+            <SubMenu Key="sub10" Title="Kết quả học tập">
             </SubMenu>
         </Menu>
         </Col>
         <Col Span="6" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
         <Menu Style="display: flex; flex-direction: row; flex-wrap: wrap;" Mode=MenuMode.Horizontal>
-            <SubMenu Key="sub3" Title="@($"Xin chào, {FullName}")">
-                <MenuItem Key="6">
+            <SubMenu Key="sub11" Title="@($"Xin chào, {FullName}")">
+                <MenuItem Key="1">
                     <Button Type="ButtonType.Text" OnClick="OnEditUser">Thông tin tài khoản</Button>
                 </MenuItem>
                     @if (Role == "Admin")
                     {
-                    <MenuItem Key="6">
+                    <MenuItem Key="2">
                         <NavLink href="/userlist">
                             <Button Type="ButtonType.Text">Quản lý người dùng</Button>
                         </NavLink>
                     </MenuItem>
                     }
-                <MenuItem Key="7">
+                    @if (Role == "Admin" || Role == "Teacher")
+                    {
+                    <MenuItem Key="3">
+                        <NavLink href="/questionlist">
+                            <Button Type="ButtonType.Text">Quản lý câu hỏi</Button>
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem Key="4">
+                        <NavLink href="/examlist">
+                            <Button Type="ButtonType.Text">Quản lý đề thi</Button>
+                        </NavLink>
+                    </MenuItem>
+                    }
+                <MenuItem Key="5">
                     <Button Type="ButtonType.Text" OnClick="Logout">Đăng xuất</Button>
                 </MenuItem>
             </SubMenu>

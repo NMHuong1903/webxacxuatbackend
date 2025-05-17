@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "BlazorApp",
   "resources": {
-    "hash": "sha256-kqVhZHypClqtmAiP7lhhB1hYcZh2OYgf+earmHFZMq4=",
+    "hash": "sha256-r9YoZeDsXAGHOMh7PSqV0yEiVa1HdLZTiQuAJFINCPs=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-RiGT44TFZmHOY+Oqvb8o8r+BJVWex6+dPxFxrOiWvFY="
     },
@@ -218,11 +218,11 @@
       "netstandard.wasm": "sha256-PK0GLtj6kQVtZPzq0FZlnSdHh7geujg80LqKdJXA4pI=",
       "System.Private.CoreLib.wasm": "sha256-gEwccs7GbRSPGmeWBOKxNroYfyM+mZ7hqbP3ki1iwX0=",
       "Shared.wasm": "sha256-5Pl+EilUuZvLn1WD8w19bA5XOJMQ55CPp50oTqjlR2E=",
-      "BlazorApp.wasm": "sha256-Wl+ptiUQmi70uH7q9c/t9sOcR2LJ7HbkU9GYXth1a14="
+      "BlazorApp.wasm": "sha256-z03AIWGwKMCodNU2rmmEg1kshdwsQPLZwiep7zwIKFU="
     },
     "pdb": {
       "Shared.pdb": "sha256-zUDFGtAV4fQeczXgPSnNkC0kIFA4bMlKVCLhJpstMPE=",
-      "BlazorApp.pdb": "sha256-4jfQxHbVOx4cNGLif9/D8TPPhxBpckJ3TpEkYbId4Zk="
+      "BlazorApp.pdb": "sha256-DFY69gvPxDRPLpR1EVq1RXw0nOJdJEek0I8mzhclv1c="
     },
     "libraryInitializers": {
       "_content/AntDesign/AntDesign.d05dnpfa5s.lib.module.js": "sha256-Y7oJ7/rOncGnhfBrDAPc045cW9bF4cp1INbpZClDsxM="
