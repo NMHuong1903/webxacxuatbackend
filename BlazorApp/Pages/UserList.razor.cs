@@ -25,7 +25,7 @@ namespace BlazorApp.Pages
         private EditUserAdmin editUserAdmin;
         public List<User> userList { get; set; } = new();
         public List<User> userPage { get; set; } = new();
-        public IEnumerable<User> selectedRows;
+        public List<User> selectedRows = new();
         public UserSearchModel userSearchModel;
         public User row { get; set; }
         public int TotalCount;
@@ -80,6 +80,13 @@ namespace BlazorApp.Pages
                 pageIndex = 1
             };
         }
+
+        private Task OnSelectedRowsChanged(IEnumerable<User> selected)
+        {
+            selectedRows = selected.ToList();
+            return Task.CompletedTask;
+        }
+
 
         private async Task LoadData()
         {
@@ -172,6 +179,17 @@ namespace BlazorApp.Pages
             finally
             {
                 isLoading = false;
+            }
+        }
+
+        private async Task OnDeleteSelected()
+        {
+            if (selectedRows.Any())
+            {
+                foreach (var row in selectedRows)
+                {
+                    await OnDelete(row);
+                }
             }
         }
 

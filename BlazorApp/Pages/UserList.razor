@@ -3,11 +3,11 @@
 @using BlazorApp.Components
 
 <div>
-    <Row Gutter="8">
+    <Row Gutter="8" Style="margin-bottom: 8px">
         <Col Span="24">
         <Space>
             <SpaceItem>
-                Xóa
+                <Button Danger Disabled="@(!selectedRows.Any())" OnClick="OnDeleteSelected">Xóa</Button>
             </SpaceItem>
             <SpaceItem>
                 tìm theo tên
@@ -27,7 +27,8 @@
                PageIndex="userSearchModel.pageIndex"
                PageSize="8"
                OnChange="OnChange"
-               @bind-SelectedRows="selectedRows">
+               SelectedRows="selectedRows"
+               SelectedRowsChanged="OnSelectedRowsChanged">
             <ColumnDefinitions>
                 <Selection Key="@context.UserName" />
                 <Column @bind-Field="@context.FullName" Title="Họ tên" Width="120px"></Column>
