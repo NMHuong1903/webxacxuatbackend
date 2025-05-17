@@ -4,6 +4,8 @@ using WebAPI.Repository;
 using Shared.Models;
 using Microsoft.AspNetCore.Authorization;
 using Shared.ModelView;
+using Shared.SearchModel;
+using Shared.ResponseModel;
 
 namespace WebAPI.Controllers
 {
@@ -27,6 +29,62 @@ namespace WebAPI.Controllers
             {
                 var questions = await _questionRepository.GetAllAsync();
                 return Ok(questions);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [Authorize(Policy = "Teacher")]
+        [HttpPost("get-page-data-with-filter")]
+        public async Task<IActionResult> GetPageDataQuestions(QuestionSearchModel questionSearchModel)
+        {
+            try
+            {
+                List<QuestionOptionView> questionOptionViews = new List<QuestionOptionView>();
+                var options = await _optionRepository.GetAllAsync();
+                var questions = await _questionRepository.GetAllAsync();
+                if (questionSearchModel.Grade == 10 || questionSearchModel.Grade == 11 || questionSearchModel.Grade == 12)
+                {
+                    questions = questions.Where(q => q.Grade == questionSearchModel.Grade).ToList();
+                }
+                if (questionSearchModel.Unit > 0)
+                {
+                    questions = questions.Where(q => q.Unit == questionSearchModel.Unit).ToList();
+                }
+                if (!string.IsNullOrEmpty(questionSearchModel.ProbabilityOrStatistic))
+                {
+                    questions = questions.Where(q => q.ProbabilityOrStatistic == questionSearchModel.ProbabilityOrStatistic).ToList();
+                }
+                if (!string.IsNullOrEmpty(questionSearchModel.Content))
+                {
+                    questions = questions.Where(q => q.Content.Contains(questionSearchModel.Content)).ToList();
+                }
+                var totalCount = questions.Count();
+                var pageSize = 8;
+                questions = questions.Skip((questionSearchModel.pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                foreach (var question in questions)
+                {
+                    QuestionOptionView questionOptionView = new QuestionOptionView
+                    {
+                        QuestionId = question.Id,
+                        Content = question.Content,
+                        Grade = question.Grade,
+                        Unit = question.Unit,
+                        Answer = question.Answer,
+                        ImageUrl = question.ImageUrl,
+                        ProbabilityOrStatistic = question.ProbabilityOrStatistic,
+                        CreateBy = question.CreateBy,
+                        Options = options.Where(o => o.QuestionId == question.Id).ToList()
+                    };
+                    questionOptionViews.Add(questionOptionView);
+                }
+                return Ok(new QuestionResponseModel
+                {
+                    questionOptionViews = questionOptionViews,
+                    TotalCount = totalCount
+                });
             }
             catch (Exception ex)
             {
@@ -96,10 +154,10 @@ namespace WebAPI.Controllers
             }
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpPost("upload-image")]
-        public async Task<IActionResult> UploadImage([FromForm] IFormFile file)
+        public async Task<IActionResult> UploadImage([FromForm] IFormFile file, [FromForm] Guid questionId)
         {
-            Guid questionId = new Guid();
             if (file == null || file.Length == 0)
                 return BadRequest("File không hợp lệ.");
 
@@ -151,13 +209,13 @@ namespace WebAPI.Controllers
 
         [Authorize(Policy = "Teacher")]
         [HttpDelete("delete")]
-        public async Task<IActionResult> DeleteQuestion([FromBody] QuestionOptionView questionOptipnView)
+        public async Task<IActionResult> DeleteQuestion(Guid questionId)
         {
             try
             {
                 var questions = await _questionRepository.GetAllAsync();
                 var options = await _optionRepository.GetAllAsync();
-                var question = questions.FirstOrDefault(q => q.Id == questionOptipnView.QuestionId);
+                var question = questions.FirstOrDefault(q => q.Id == questionId);
                 if (question == null)
                 {
                     return NotFound(new { message = "Question not found" });

@@ -33,7 +33,6 @@ namespace BlazorApp.Components
 
                 if (!string.IsNullOrEmpty(token))
                 {
-                    Console.WriteLine("đính kèm token");
                     Http.DefaultRequestHeaders.Authorization =
                         new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 }

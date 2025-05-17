@@ -1,3 +1,16 @@
+# Ignore build folders
+bin/
+obj/
 .vs/
+
+# Ignore user config
+*.user
+*.suo
+
+# Ignore dev settings
+appsettings.Development.json
+
+# Others
+*.db
 
 

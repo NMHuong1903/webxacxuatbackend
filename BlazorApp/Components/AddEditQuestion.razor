@@ -4,11 +4,55 @@
       LabelColSpan="6"
       WrapperColSpan="12">
     <FormItem Label="Nội dung câu hỏi">
-        <Input @bind-Value="@questionOptionView.Content" Placeholder="Nhập nội dung câu hỏi"/>
+        <Input @bind-Value="@questionOptionView.Content" Style="height:200px" Placeholder="Nhập nội dung câu hỏi"/>
+    </FormItem>
+    <FormItem Label="Ảnh số liệu (nếu có)">
+        <Upload Action="https://localhost:7247/api/Question/upload-image"
+                Name="file"
+                Data="uploadProps"
+                ShowUploadList="true"
+                OnSingleCompleted="OnSingleCompleted"
+                Accept=".jpg,.jpeg,.png">
+            <Button Icon="upload">
+                <span>Tải ảnh lên</span>
+            </Button>
+        </Upload>
     </FormItem>
     <FormItem Label="Lời giải">
-        <Input @bind-Value="@questionOptionView.Answer" Placeholder="Nhập lời giải" />
+        <Input @bind-Value="@questionOptionView.Answer" Style="height:200px" Placeholder="Nhập lời giải" />
     </FormItem>
+    <FormItem Label="Khối">
+        <Input @bind-Value="@questionOptionView.Grade" Placeholder="Nhập khối" />
+    </FormItem>
+    <FormItem Label="Bài">
+        <Input @bind-Value="@questionOptionView.Unit" Placeholder="Nhập bài" />
+    </FormItem>
+    <FormItem Label="Phần">
+        <Select DataSource="typeQuestion"
+                TItemValue="string"
+                TItem="string"
+                @bind-Value="selectedType"
+                OnSelectedItemChanged="OnSelectedType"
+                Placeholder="Chọn phần">
+        </Select>
+    </FormItem>
+    <FormItem Label="Đáp án">
+        <Space>
+            <SpaceItem>
+                <Input @bind-Value="@trueOption.Content" Placeholder="Nhập đáp án đúng" />
+            </SpaceItem>
+            <SpaceItem>
+                <Input @bind-Value="@falseOption1.Content" Placeholder="Nhập đáp án sai thứ nhất" />
+            </SpaceItem>
+            <SpaceItem>
+                <Input @bind-Value="@falseOption2.Content" Placeholder="Nhập đáp án sai thứ hai" />
+            </SpaceItem>
+            <SpaceItem>
+                <Input @bind-Value="@falseOption3.Content" Placeholder="Nhập đáp án sai thứ ba" />
+            </SpaceItem>
+        </Space>
+    </FormItem>
+
     <FormItem WrapperColOffset="6" WrapperColSpan="12">
         @if (isAdd)
         {

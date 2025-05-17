@@ -4,6 +4,7 @@ using AntDesign;
 using Shared.Models;
 using Shared.ModelView;
 using System.Net.Http.Json;
+using Shared.ResponseModel;
 
 namespace BlazorApp.Components
 {
@@ -12,15 +13,66 @@ namespace BlazorApp.Components
         [Inject] private HttpClient Http { get; set; } = default!;
         [Inject] private INotificationService _notification { get; set; } = default!;
         [Inject] private IJSRuntime JS { get; set; } = default!;
-        [Parameter] public QuestionOptionView questionOptionView { get; set; } = new();
+        [Parameter] public QuestionOptionView questionOptionView { get; set; } 
+        public Dictionary<string, object> uploadProps { get; set; }
         public bool isLoading = false;
-        public bool isAdd = false;
-        public bool isEdit = false;
+        [Parameter] public bool isAdd { get; set; } = false;
+        [Parameter] public bool isEdit { get; set; } = false;
         public string token = string.Empty;
+        public string selectedType = string.Empty;
+        public List<string> typeQuestion = new List<string>
+        {
+            "Xác suất",
+            "Thống kê",
+        };
+        public Option trueOption { get; set; } 
+        public Option falseOption1 { get; set; }
+        public Option falseOption2 { get; set; }
+        public Option falseOption3 { get; set; }
 
         protected override async void OnInitialized()
         {
+            InitForm();
             await LoadToken();
+        }
+
+        private void InitForm()
+        {
+            questionOptionView ??= new QuestionOptionView
+            {
+                QuestionId = Guid.NewGuid(),
+                Options = new List<Option>()
+            };
+
+            trueOption = new Option
+            {
+                Id = Guid.NewGuid(),
+                IsCorrect = true,
+                QuestionId = questionOptionView.QuestionId
+            };
+            falseOption1 = new Option
+            {
+                Id = Guid.NewGuid(),
+                IsCorrect = false,
+                QuestionId = questionOptionView.QuestionId
+            };
+            falseOption2 = new Option
+            {
+                Id = Guid.NewGuid(),
+                IsCorrect = false,
+                QuestionId = questionOptionView.QuestionId
+            };
+            falseOption3 = new Option
+            {
+                Id = Guid.NewGuid(),
+                IsCorrect = false,
+                QuestionId = questionOptionView.QuestionId
+            };
+            uploadProps = new Dictionary<string, object>
+            {
+                { "questionId", questionOptionView.QuestionId }
+            };
+            selectedType = string.Empty;
         }
 
         private async Task LoadToken()
@@ -47,6 +99,15 @@ namespace BlazorApp.Components
             }
         }
 
+        private void OnSingleCompleted(UploadInfo fileinfo)
+        {
+            if (fileinfo.File.State == UploadState.Success)
+            {
+                var result = fileinfo.File.GetResponse<UrlResponse>();
+                questionOptionView.ImageUrl = result.url;
+            }
+        }
+
         private async Task OnFinish()
         {
             if (isAdd)
@@ -54,6 +115,12 @@ namespace BlazorApp.Components
                 isLoading = true;
                 try
                 {
+                    var UserId = await JS.InvokeAsync<Guid>("sessionStorage.getItem", "userid");
+                    questionOptionView.CreateBy = UserId;
+                    questionOptionView.Options.Add(trueOption);
+                    questionOptionView.Options.Add(falseOption1);
+                    questionOptionView.Options.Add(falseOption2);
+                    questionOptionView.Options.Add(falseOption3);
                     var response = await Http.PostAsJsonAsync("https://localhost:7247/api/Question/add", questionOptionView);
                     if (response.IsSuccessStatusCode)
                     {
@@ -63,6 +130,8 @@ namespace BlazorApp.Components
                             Message = "Thêm câu hỏi thành công",
                             Duration = 2,
                         });
+                        InitForm();
+                        StateHasChanged();
                     }
                     else
                     {
@@ -145,6 +214,14 @@ namespace BlazorApp.Components
                 Message = "Thông tin không hợp lệ, vui lòng thử lại sau.",
                 Duration = 2,
             });
+        }
+
+        private void OnSelectedType()
+        { 
+            if(!string.IsNullOrEmpty(selectedType))
+            {
+                questionOptionView.ProbabilityOrStatistic = selectedType;
+            }
         }
     }
 }

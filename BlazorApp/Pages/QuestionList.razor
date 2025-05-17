@@ -1,26 +1,42 @@
 ﻿@page "/questionlist"
 @using BlazorApp.Components
+@using Shared.ModelView
 
 
 <PageTitle>Quản lý câu hỏi</PageTitle>
 
-@* <div>
+<div>
     <Row Gutter="8" Style="margin-bottom: 8px">
         <Col Span="24">
         <Space>
             <SpaceItem>
-                <Button Danger Disabled="@(!selectedRows.Any())" OnClick="OnDeleteSelected">Xóa</Button>
+                <Button Type="ButtonType.Primary" OnClick="OnAdd">Thêm</Button>
             </SpaceItem>
             <SpaceItem>
-                <Search OnSearch="OnSelectFullName" @bind-Value="selectedName" Placeholder="Nhập họ tên" EnterButton="true" />
+                <Button Danger Disabled="@(!selectedRows.Any())" Onclick="OnDeleteSelected">Xóa</Button>
             </SpaceItem>
             <SpaceItem>
-                <Select DataSource="roles"
+                <Search Onsearch="OnSelectContent" @bind-Value="selectedContent" Placeholder="Nhập nội dung" EnterButton="true" />
+            </SpaceItem>
+            <SpaceItem>
+                <Input OnPressEnter="OnSelectUnit" @bind-Value="selectedUnit" Placeholder="Nhập bài" />
+            </SpaceItem>
+            <SpaceItem>
+                <Select DataSource="typeQuestion"
                         TItemValue="string"
                         TItem="string"
-                        @bind-Value="selectedRole"
-                        OnSelectedItemChanged="OnSelectRole"
-                        Placeholder="Chọn vai trò">
+                        @bind-Value="selectedProbabilityOrStatistic"
+                        OnSelectedItemChanged="OnSelectProbabilityOrStatistic"
+                        Placeholder="Chọn phần">
+                </Select>
+            </SpaceItem>
+            <SpaceItem>
+                <Select DataSource="grades"
+                        TItemValue="int"
+                        TItem="int"
+                        @bind-Value="selectedGrade"
+                        OnSelectedItemChanged="OnSelectGrade"
+                        Placeholder="Chọn khối">
                 </Select>
             </SpaceItem>
         </Space>
@@ -28,22 +44,23 @@
     </Row>
     <Row Gutter="8">
         <Col Span="24">
-        <Table DataSource="@userPage"
-               TItem="User"
+        <Table DataSource="@questionOptionViewPage"
+               TItem="QuestionOptionView"
                Bordered
                Total="TotalCount"
-               PageIndex="userSearchModel.pageIndex"
+               PageIndex="questionSearchModel.pageIndex"
                PageSize="8"
                OnChange="OnChange"
                SelectedRows="selectedRows"
                SelectedRowsChanged="OnSelectedRowsChanged">
             <ColumnDefinitions>
-                <Selection Key="@context.UserName" />
-                <Column @bind-Field="@context.FullName" Title="Họ tên" Width="120px"></Column>
-                <Column @bind-Field="@context.Email" Title="Email" Width="120px"></Column>
-                <Column @bind-Field="@context.UserName" Title="Tên đang nhập" Width="120px"></Column>
-                <Column @bind-Field="@context.Password" Title="Mật khẩu" Width="120px"></Column>
-                <Column @bind-Field="@context.Role" Title="Vai trò" Width="120px"></Column>
+                <Selection Key="@context.QuestionId.ToString()" />
+                <Column @bind-Field="@context.Content" Title="Nội dung" Width="120px"></Column>
+                <Column @bind-Field="@context.Answer" Title="Lời giải" Width="120px"></Column>
+                <Column @bind-Field="@context.ImageUrl" Title="Url ảnh(nếu có)" Width="120px"></Column>
+                <Column @bind-Field="@context.Grade" Title="Khối" Width="120px"></Column>
+                <Column @bind-Field="@context.Unit" Title="Bài" Width="120px"></Column>
+                <Column @bind-Field="@context.ProbabilityOrStatistic" Title="Phần" Width="120px"></Column>
                 <ActionColumn Title="Thao tác" Width="120px">
                     <Space>
                         <SpaceItem>
@@ -64,13 +81,25 @@
     </Row>
     <Drawer Closable
             Visible="isedit"
-            Title='("Thông tin tài khoản")'
+            Title='("Thông tin câu hỏi")'
             OnClose="OnClodeDrawer"
-            Width="600">
+            Width="100%">
         <Template>
-            <EditUserAdmin @ref="editUserAdmin"
-                           user="row">
-            </EditUserAdmin>
+            <AddEditQuestion @ref="addEditQuestion"
+                             isEdit="@true"
+                             questionOptionView="row">
+            </AddEditQuestion>
         </Template>
     </Drawer>
-</div> *@
+    <Drawer Closable
+            Visible="isadd"
+            Title='("Thêm Câu hỏi")'
+            OnClose="OnClodeDrawer"
+            Width="100%">
+        <Template>
+            <AddEditQuestion @ref="addEditQuestion"
+                             isAdd="@true">
+            </AddEditQuestion>
+        </Template>
+    </Drawer>
+</div>

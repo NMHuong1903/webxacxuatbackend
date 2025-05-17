@@ -6,6 +6,8 @@ using BlazorApp.Components;
 using Shared.Models;
 using Shared.ResponseModel;
 using Shared.SearchModel;
+using System.Net.Http.Json;
+using Shared.ModelView;
 
 namespace BlazorApp.Pages
 {
@@ -16,21 +18,32 @@ namespace BlazorApp.Pages
         [Inject] private IMessageService _message { get; set; } = default!;
         [Inject] private IJSRuntime JS { get; set; } = default!;
         [Inject] private NavigationManager NavigationManager { get; set; } = default!;
-
-        Func<PaginationTotalContext, string> showTotal2 = ctx => $"Tổng {ctx.Total} bản ghi.";
-        private EditUserAdmin editUserAdmin;
-        public List<User> userList { get; set; } = new();
-        public List<User> userPage { get; set; } = new();
-        public List<User> selectedRows = new();
-        public UserSearchModel userSearchModel;
-        public User row { get; set; }
+        private AddEditQuestion addEditQuestion;
+        public List<QuestionOptionView> questionOptionViews { get; set; } = new();
+        public List<QuestionOptionView> questionOptionViewPage { get; set; } = new();
+        public List<QuestionOptionView> selectedRows = new();
+        public QuestionSearchModel questionSearchModel;
+        public QuestionOptionView row { get; set; }
         public int TotalCount;
         public bool isLoading = false;
         public string token = string.Empty;
         public bool isadd = false;
         public bool isedit = false;
-        string selectedRole = string.Empty;
+        string selectedProbabilityOrStatistic = string.Empty;
+        public List<string> typeQuestion = new List<string>
+        {
+            "Xác suất",
+            "Thống kê",
+        };
         string selectedContent = string.Empty;
+        int selectedGrade = 0;
+        public List<int> grades = new List<int>
+        {
+            10,
+            11,
+            12
+        };
+        int selectedUnit = 0;
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -63,160 +76,180 @@ namespace BlazorApp.Pages
             }
         }
 
-        async Task OnChange(QueryModel<User> query)
+        async Task OnChange(QueryModel<QuestionOptionView> query)
         {
-            userSearchModel.pageIndex = query.PageIndex;
+            questionSearchModel.pageIndex = query.PageIndex;
             await LoadToken();
             await LoadData();
         }
 
         private void InitForm()
         {
-            userSearchModel = new UserSearchModel
+            questionSearchModel = new QuestionSearchModel
             {
-                Id = Guid.Empty,
-                FullName = string.Empty,
-                Email = string.Empty,
-                UserName = string.Empty,
-                Role = string.Empty,
+                Grade = 0,
+                Unit = 0,
+                Content = string.Empty,
+                ProbabilityOrStatistic = string.Empty,
                 pageIndex = 1
             };
         }
 
-        private Task OnSelectedRowsChanged(IEnumerable<User> selected)
+        private Task OnSelectedRowsChanged(IEnumerable<QuestionOptionView> selected)
         {
             selectedRows = selected.ToList();
             return Task.CompletedTask;
         }
 
 
-    //    private async Task LoadData()
-    //    {
-    //        var response = await Http.PostAsJsonAsync("https://localhost:7247/api/User/get-page-data-with-filter", userSearchModel);
-    //        if (response.IsSuccessStatusCode)
-    //        {
-    //            var result = await response.Content.ReadFromJsonAsync<UserResponseModel>();
-    //            userList = result.Users.ToList();
-    //            userPage = userList.Take(8).ToList();
-    //            TotalCount = result.TotalCount;
-    //        }
-    //        else
-    //        {
-    //            var error = await response.Content.ReadAsStringAsync();
-    //            await _notification.Error(new NotificationConfig()
-    //            {
-    //                Message = "Tải dữ liệu không thành công, vui lòng thử lại sau.",
-    //                Description = error,
-    //                Duration = 2,
-    //            });
-    //        }
-    //    }
+        private async Task LoadData()
+        {
+            var response = await Http.PostAsJsonAsync("https://localhost:7247/api/Question/get-page-data-with-filter", questionSearchModel);
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<QuestionResponseModel>();
+                questionOptionViews = result.questionOptionViews.ToList();
+                questionOptionViewPage = questionOptionViews.Take(8).ToList();
+                TotalCount = result.TotalCount;
+            }
+            else
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                await _notification.Error(new NotificationConfig()
+                {
+                    Message = "Tải dữ liệu không thành công, vui lòng thử lại sau.",
+                    Description = error,
+                    Duration = 2,
+                });
+            }
+        }
 
-    //    private async Task LoadToken()
-    //    {
-    //        try
-    //        {
+        private async Task LoadToken()
+        {
+            try
+            {
 
-    //            token = await JS.InvokeAsync<string>("sessionStorage.getItem", "token");
+                token = await JS.InvokeAsync<string>("sessionStorage.getItem", "token");
 
-    //            if (!string.IsNullOrEmpty(token))
-    //            {
-    //                Console.WriteLine("đính kèm token");
-    //                Http.DefaultRequestHeaders.Authorization =
-    //                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-    //            }
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            await _notification.Error(new NotificationConfig()
-    //            {
-    //                Message = "Tải dữ liệu không thành công, vui lòng thử lại sau.",
-    //                Description = ex.Message,
-    //                Duration = 2,
-    //            });
-    //        }
-    //    }
+                if (!string.IsNullOrEmpty(token))
+                {
+                    Console.WriteLine("đính kèm token");
+                    Http.DefaultRequestHeaders.Authorization =
+                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                }
+            }
+            catch (Exception ex)
+            {
+                await _notification.Error(new NotificationConfig()
+                {
+                    Message = "Tải dữ liệu không thành công, vui lòng thử lại sau.",
+                    Description = ex.Message,
+                    Duration = 2,
+                });
+            }
+        }
 
-    //    private void OnEdit(User context)
-    //    {
-    //        isedit = true;
-    //        row = context;
-    //    }
+        private void OnEdit(QuestionOptionView context)
+        {
+            isedit = true;
+            row = context;
+        }
 
-    //    private async Task OnDelete(User context)
-    //    {
-    //        isLoading = true;
-    //        try
-    //        {
-    //            var response = await Http.DeleteAsync($"https://localhost:7247/api/User/delete/{context.Id}");
-    //            if (response.IsSuccessStatusCode)
-    //            {
-    //                await LoadData();
-    //                await _notification.Success(new NotificationConfig()
-    //                {
-    //                    Message = "Xóa thành công",
-    //                    Duration = 2,
-    //                });
-    //            }
-    //            else
-    //            {
-    //                var error = await response.Content.ReadAsStringAsync();
-    //                await _notification.Error(new NotificationConfig()
-    //                {
-    //                    Message = "Xóa không thành công, vui lòng thử lại sau.",
-    //                    Description = error,
-    //                    Duration = 2,
-    //                });
-    //            }
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            await _notification.Error(new NotificationConfig()
-    //            {
-    //                Message = "Xóa không thành công, vui lòng thử lại sau.",
-    //                Description = ex.Message,
-    //                Duration = 2,
-    //            });
-    //        }
-    //        finally
-    //        {
-    //            isLoading = false;
-    //        }
-    //    }
+        private void OnAdd()
+        {
+            isadd = true;
+        }
 
-    //    private async Task OnDeleteSelected()
-    //    {
-    //        if (selectedRows.Any())
-    //        {
-    //            foreach (var row in selectedRows)
-    //            {
-    //                await OnDelete(row);
-    //            }
-    //        }
-    //    }
+        private async Task OnDelete(QuestionOptionView context)
+        {
+            isLoading = true;
+            try
+            {
+                var response = await Http.DeleteAsync($"https://localhost:7247/api/Question/delete/{context.QuestionId}");
+                if (response.IsSuccessStatusCode)
+                {
+                    await LoadData();
+                    await _notification.Success(new NotificationConfig()
+                    {
+                        Message = "Xóa thành công",
+                        Duration = 2,
+                    });
+                }
+                else
+                {
+                    var error = await response.Content.ReadAsStringAsync();
+                    await _notification.Error(new NotificationConfig()
+                    {
+                        Message = "Xóa không thành công, vui lòng thử lại sau.",
+                        Description = error,
+                        Duration = 2,
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                await _notification.Error(new NotificationConfig()
+                {
+                    Message = "Xóa không thành công, vui lòng thử lại sau.",
+                    Description = ex.Message,
+                    Duration = 2,
+                });
+            }
+            finally
+            {
+                isLoading = false;
+            }
+        }
 
-    //    private void OnClodeDrawer()
-    //    {
-    //        isadd = false;
-    //        isedit = false;
-    //        row = new User();
-    //    }
+        private async Task OnDeleteSelected()
+        {
+            if (selectedRows.Any())
+            {
+                foreach (var row in selectedRows)
+                {
+                    await OnDelete(row);
+                }
+            }
+        }
 
-    //    private async Task OnSelectRole()
-    //    {
-    //        userSearchModel.Role = selectedRole;
-    //        userSearchModel.pageIndex = 1;
-    //        await LoadToken();
-    //        await LoadData();
-    //    }
+        private void OnClodeDrawer()
+        {
+            isadd = false;
+            isedit = false;
+            row = new QuestionOptionView();
+        }
 
-    //    private async Task OnSelectFullName()
-    //    {
-    //        userSearchModel.FullName = selectedName;
-    //        userSearchModel.pageIndex = 1;
-    //        await LoadToken();
-    //        await LoadData();
-    //    }
-    //}
+        private async Task OnSelectGrade()
+        {
+            questionSearchModel.Grade = selectedGrade;
+            questionSearchModel.pageIndex = 1;
+            await LoadToken();
+            await LoadData();
+        }
+
+        private async Task OnSelectUnit()
+        {
+            questionSearchModel.Unit = selectedUnit;
+            questionSearchModel.pageIndex = 1;
+            await LoadToken();
+            await LoadData();
+        }
+
+        private async Task OnSelectProbabilityOrStatistic()
+        {
+            questionSearchModel.ProbabilityOrStatistic = selectedProbabilityOrStatistic;
+            questionSearchModel.pageIndex = 1;
+            await LoadToken();
+            await LoadData();
+        }
+
+        private async Task OnSelectContent()
+        {
+            questionSearchModel.Content = selectedContent;
+            questionSearchModel.pageIndex = 1;
+            await LoadToken();
+            await LoadData();
+        }
+    }
 
 }
