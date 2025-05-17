@@ -1,13 +1,11 @@
 ﻿@page "/userlist"
 @using Shared.Models
+@using BlazorApp.Components
 
 <div>
     <Row Gutter="8">
         <Col Span="24">
         <Space>
-            <SpaceItem>
-                thêm
-            </SpaceItem>
             <SpaceItem>
                 Xóa
             </SpaceItem>
@@ -22,12 +20,13 @@
     </Row>
     <Row Gutter="8">
         <Col Span="24">
-        <Table DataSource="@userList"
+        <Table DataSource="@userPage"
                TItem="User"
                Bordered
                Total="TotalCount"
                PageIndex="userSearchModel.pageIndex"
                PageSize="8"
+               OnChange="OnChange"
                @bind-SelectedRows="selectedRows">
             <ColumnDefinitions>
                 <Selection Key="@context.UserName" />
@@ -36,10 +35,35 @@
                 <Column @bind-Field="@context.UserName" Title="Tên đang nhập" Width="120px"></Column>
                 <Column @bind-Field="@context.Password" Title="Mật khẩu" Width="120px"></Column>
                 <Column @bind-Field="@context.Role" Title="Vai trò" Width="120px"></Column>
+                <ActionColumn Title="Thao tác" Width="120px">
+                    <Space>
+                        <SpaceItem>
+                            <Button Type="ButtonType.Text" OnClick="() => OnEdit(context)">
+                                <Icon Type="info-circle" Theme="IconThemeType.Outline" />
+                            </Button>
+                        </SpaceItem>
+                        <SpaceItem>
+                            <Button Danger Type="ButtonType.Text" OnClick="() => OnDelete(context)">
+                                <Icon Type="delete" Theme="IconThemeType.Outline" />
+                            </Button>
+                        </SpaceItem>
+                    </Space>
+                </ActionColumn>
             </ColumnDefinitions>
         </Table>
         </Col>
     </Row>
+    <Drawer Closable
+            Visible="isedit"
+            Title='("Thông tin tài khoản")'
+            OnClose="OnClodeDrawer"
+            Width="600">
+        <Template>
+            <EditUserAdmin @ref="editUserAdmin"
+                           user="row">
+            </EditUserAdmin>
+        </Template>
+    </Drawer>
 </div>
 
 

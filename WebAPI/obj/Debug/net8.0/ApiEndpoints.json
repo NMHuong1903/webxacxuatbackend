@@ -240,14 +240,14 @@
   {
     "ContainingType": "WebAPI.Controllers.UserController",
     "Method": "DeleteUser",
-    "RelativePath": "api/User/delete",
+    "RelativePath": "api/User/delete/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "user",
-        "Type": "Shared.Models.User",
+        "Name": "id",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],

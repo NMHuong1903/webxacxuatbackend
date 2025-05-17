@@ -1,0 +1,26 @@
+﻿<Form Model="user"
+      OnFinish="OnFinish"
+      OnFinishFailed="OnFinishFailed"
+      LabelColSpan="6"
+      WrapperColSpan="12">
+    <FormItem Label="Tên đăng nhập">
+        <Input @bind-Value="@user.UserName" Placeholder="Nhập tên đăng nhập" Disabled />
+    </FormItem>
+    <FormItem Label="Mật khẩu">
+        <InputPassword @bind-Value="@user.Password" Placeholder="Nhập mật khẩu" />
+    </FormItem>
+    <FormItem Label="Họ tên">
+        <Input @bind-Value="@user.FullName" Placeholder="Nhập họ tên" />
+    </FormItem>
+    <FormItem Label="Email">
+        <Input @bind-Value="@user.Email" Placeholder="Nhập email" />
+    </FormItem>
+    <FormItem Label="Vai trò">
+        <Input @bind-Value="@user.Role" Placeholder="Nhập vai trò" />
+    </FormItem>
+    <FormItem WrapperColOffset="6" WrapperColSpan="12">
+        <Button Type="ButtonType.Primary" HtmlType="submit" Loading="isLoading" Disabled="isLoading">
+            Cập nhật thông tin
+        </Button>
+    </FormItem>
+</Form>

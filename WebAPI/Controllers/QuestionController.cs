@@ -53,6 +53,8 @@ namespace WebAPI.Controllers
                     Content = question.Content,
                     Grade = question.Grade,
                     Unit = question.Unit,
+                    Answer = question.Answer,
+                    ImageUrl = question.ImageUrl,
                     ProbabilityOrStatistic = question.ProbabilityOrStatistic,
                     CreateBy = question.CreateBy,
                     Options = options.Where(o => o.QuestionId == question.Id).ToList()
@@ -76,6 +78,8 @@ namespace WebAPI.Controllers
                     Content = questionOptipnView.Content,
                     Grade = questionOptipnView.Grade,
                     Unit = questionOptipnView.Unit,
+                    Answer = questionOptipnView.Answer,
+                    ImageUrl = questionOptipnView.ImageUrl,
                     ProbabilityOrStatistic = questionOptipnView.ProbabilityOrStatistic,
                     CreateBy = questionOptipnView.CreateBy
                 };
@@ -107,6 +111,8 @@ namespace WebAPI.Controllers
                 question.Content = questionOptipnView.Content;
                 question.Grade = questionOptipnView.Grade;
                 question.Unit = questionOptipnView.Unit;
+                question.Answer = questionOptipnView.Answer;
+                question.ImageUrl = questionOptipnView.ImageUrl;
                 question.ProbabilityOrStatistic = questionOptipnView.ProbabilityOrStatistic;             
                 await _questionRepository.UpdateAsync(question);
                 foreach (var option in questionOptipnView.Options)

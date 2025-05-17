@@ -1081,8 +1081,8 @@ D:\study\WebHocXacSuat\webxacxuatbackend\BlazorApp\obj\Debug\net8.0\compressed\l
 D:\study\WebHocXacSuat\webxacxuatbackend\BlazorApp\obj\Debug\net8.0\compressed\lxhkj8j40j-av3ep8pb37.gz
 D:\study\WebHocXacSuat\webxacxuatbackend\BlazorApp\obj\Debug\net8.0\compressed\nzp4z8lyok-0agrjp23zb.gz
 D:\study\WebHocXacSuat\webxacxuatbackend\BlazorApp\obj\Debug\net8.0\compressed\6m85z1f7hp-dsbi6qqa67.gz
-D:\study\WebHocXacSuat\webxacxuatbackend\BlazorApp\obj\Debug\net8.0\compressed\h5gxq7ypzm-leureneggf.gz
-D:\study\WebHocXacSuat\webxacxuatbackend\BlazorApp\obj\Debug\net8.0\compressed\tcdnzmmz41-muy6nfkxzh.gz
-D:\study\WebHocXacSuat\webxacxuatbackend\BlazorApp\obj\Debug\net8.0\compressed\e8x9j5c3gt-aarelccvte.gz
-D:\study\WebHocXacSuat\webxacxuatbackend\BlazorApp\obj\Debug\net8.0\compressed\elg2uvrrc6-tdytlq01d8.gz
-D:\study\WebHocXacSuat\webxacxuatbackend\BlazorApp\obj\Debug\net8.0\compressed\k4a7psrd0j-5ggooogv5t.gz
+D:\study\WebHocXacSuat\webxacxuatbackend\BlazorApp\obj\Debug\net8.0\compressed\h5gxq7ypzm-kamli0195k.gz
+D:\study\WebHocXacSuat\webxacxuatbackend\BlazorApp\obj\Debug\net8.0\compressed\tcdnzmmz41-hb7n4yj9mw.gz
+D:\study\WebHocXacSuat\webxacxuatbackend\BlazorApp\obj\Debug\net8.0\compressed\e8x9j5c3gt-ieraytyv0s.gz
+D:\study\WebHocXacSuat\webxacxuatbackend\BlazorApp\obj\Debug\net8.0\compressed\elg2uvrrc6-mzk0bfme2h.gz
+D:\study\WebHocXacSuat\webxacxuatbackend\BlazorApp\obj\Debug\net8.0\compressed\k4a7psrd0j-gzegr7eh5x.gz

@@ -1,45 +1,63 @@
-﻿<Row Gutter="16" Style="display: flex; align-items: center;">
-    <Col Span="6" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
-    <h2 style="text-decoration: underline">
-        TRACNGHIEMXSTK
-    </h2>
-    </Col>
-    <Col Span="4" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
-    <Menu Style="display: flex; flex-direction: row; flex-wrap: wrap;" Mode=MenuMode.Horizontal>
-        <SubMenu Key="sub1" Title="Học tập">
-            <MenuItem Key="1">Lớp 12</MenuItem>
-            <MenuItem Key="2">Lớp 11</MenuItem>
-            <MenuItem Key="3">Lớp 10</MenuItem>
-        </SubMenu>
-    </Menu>
-    </Col>
-    <Col Span="4" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
-    <Menu Style="display: flex; flex-direction: row; flex-wrap: wrap;" Mode=MenuMode.Horizontal>
-        <SubMenu Key="sub4" Title="Kết quả học tập">
-        </SubMenu>
-    </Menu>
-    </Col>
-    <Col Span="4" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
-    <Menu Style="display: flex; flex-direction: row; flex-wrap: wrap;" Mode=MenuMode.Horizontal>
-        <SubMenu Key="sub2" Title="Đề thi">
-            <MenuItem Key="4">Option 1</MenuItem>
-            <MenuItem Key="5">Option 2</MenuItem>
-        </SubMenu>
-    </Menu>
-    </Col>
-    <Col Span="6" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
-    <Menu Style="display: flex; flex-direction: row; flex-wrap: wrap;" Mode=MenuMode.Horizontal>
-        <SubMenu Key="sub3" Title="@($"Xin chào, {FullName}")">
-            <MenuItem Key="6">Thông tin tài khoản</MenuItem>
-            <MenuItem Key="6">
-                <NavLink href="/userlist">
-                    <Button Type="ButtonType.Link" Style="color: black">Quản lý người dùng</Button>
-                </NavLink>
-            </MenuItem>
-            <MenuItem Key="7">
-                <Button Type="ButtonType.Link" Style="color: black" OnClick="Logout">Đăng xuất</Button>
-            </MenuItem>
-        </SubMenu>
-    </Menu>
-    </Col>
-</Row>
+﻿@using BlazorApp.Components
+
+<div>
+    <Row Gutter="16" Style="display: flex; align-items: center;">
+        <Col Span="6" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
+        <h2 style="text-decoration: underline">
+            TRACNGHIEMXSTK
+        </h2>
+        </Col>
+        <Col Span="4" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
+        <Menu Style="display: flex; flex-direction: row; flex-wrap: wrap;" Mode=MenuMode.Horizontal>
+            <SubMenu Key="sub1" Title="Học tập">
+                <MenuItem Key="1">Lớp 12</MenuItem>
+                <MenuItem Key="2">Lớp 11</MenuItem>
+                <MenuItem Key="3">Lớp 10</MenuItem>
+            </SubMenu>
+        </Menu>
+        </Col>
+        <Col Span="4" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
+        <Menu Style="display: flex; flex-direction: row; flex-wrap: wrap;" Mode=MenuMode.Horizontal>
+            <SubMenu Key="sub4" Title="Kết quả học tập">
+            </SubMenu>
+        </Menu>
+        </Col>
+        <Col Span="4" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
+        <Menu Style="display: flex; flex-direction: row; flex-wrap: wrap;" Mode=MenuMode.Horizontal>
+            <SubMenu Key="sub2" Title="Đề thi">
+                <MenuItem Key="4">Option 1</MenuItem>
+                <MenuItem Key="5">Option 2</MenuItem>
+            </SubMenu>
+        </Menu>
+        </Col>
+        <Col Span="6" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
+        <Menu Style="display: flex; flex-direction: row; flex-wrap: wrap;" Mode=MenuMode.Horizontal>
+            <SubMenu Key="sub3" Title="@($"Xin chào, {FullName}")">
+                <MenuItem Key="6">
+                    <Button Type="ButtonType.Text" OnClick="OnEditUser">Thông tin tài khoản</Button>
+                </MenuItem>
+                <MenuItem Key="6">
+                    <NavLink href="/userlist">
+                        <Button Type="ButtonType.Text">Quản lý người dùng</Button>
+                    </NavLink>
+                </MenuItem>
+                <MenuItem Key="7">
+                    <Button Type="ButtonType.Text" OnClick="Logout">Đăng xuất</Button>
+                </MenuItem>
+            </SubMenu>
+        </Menu>
+        </Col>
+    </Row>
+    <Drawer Closable
+            Visible="isEdit"
+            Title='("Thông tin tài khoản")'
+            OnClose="OnClodeDrawer"
+            Width="600">
+        <Template>
+            <Add_EditUser @ref="addEditUser"
+                          IsEdit="@true"
+                          userAddEditModel="userAddEditModel">
+            </Add_EditUser>
+        </Template>
+    </Drawer>
+</div>

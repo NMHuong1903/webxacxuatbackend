@@ -193,11 +193,13 @@ namespace WebAPI.Controllers
         }
 
         [Authorize(Policy = "Admin")]
-        [HttpDelete("delete")]
-        public async Task<IActionResult> DeleteUser([FromBody] User user)
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
             try
             {
+                var users = await _userRepository.GetAllAsync();
+                var user = users.FirstOrDefault(x => x.Id == id);
                 await _userRepository.DeleteAsync(user);
                 return Ok(new { message = "User deleted successfully" });
             }

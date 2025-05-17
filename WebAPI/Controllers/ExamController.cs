@@ -68,6 +68,8 @@ namespace WebAPI.Controllers
                         Grade = question.Grade,
                         Unit = question.Unit,
                         ProbabilityOrStatistic = question.ProbabilityOrStatistic,
+                        Answer = question.Answer,
+                        ImageUrl = question.ImageUrl,
                         CreateBy = question.CreateBy,
                         Options = options.Where(o => o.QuestionId == question.Id).ToList()
                     };
@@ -102,6 +104,8 @@ namespace WebAPI.Controllers
                         Content = questionView.Content,
                         Grade = questionView.Grade,
                         Unit = questionView.Unit,
+                        Answer = questionView.Answer,
+                        ImageUrl = questionView.ImageUrl,
                         ProbabilityOrStatistic = questionView.ProbabilityOrStatistic,
                         CreateBy = exam.CreateBy,
                         CreatedAt = exam.CreatedAt,

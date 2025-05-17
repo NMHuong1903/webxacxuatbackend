@@ -11,6 +11,8 @@ namespace Shared.ModelView
     {
         public Guid QuestionId { get; set; }
         public string Content { get; set; }
+        public string Answer { get; set; } = string.Empty;
+        public string ImageUrl { get; set; } = string.Empty;
         public int Grade { get; set; }
         public int Unit { get; set; }
         public string ProbabilityOrStatistic { get; set; } = string.Empty;

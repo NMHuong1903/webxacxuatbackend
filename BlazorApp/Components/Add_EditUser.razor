@@ -1,10 +1,10 @@
 ﻿<Form Model="userAddEditModel"
-      OnFinish="OnFinish"
-      OnFinishFailed="OnFinishFailed"
-      LabelColSpan="6"
-      WrapperColSpan="12">
+OnFinish="OnFinish"
+OnFinishFailed="OnFinishFailed"
+LabelColSpan="6"
+WrapperColSpan="12">
     <FormItem Label="Tên đăng nhập">
-        <Input @bind-Value="@userAddEditModel.UserName" Placeholder="Nhập tên đăng nhập" />
+        <Input @bind-Value="@userAddEditModel.UserName" Placeholder="Nhập tên đăng nhập" Disabled="IsEdit" />
     </FormItem>
     <FormItem Label="Mật khẩu">
         <InputPassword @bind-Value="@userAddEditModel.Password" Placeholder="Nhập mật khẩu" />
@@ -16,8 +16,18 @@
         <Input @bind-Value="@userAddEditModel.Email" Placeholder="Nhập email" />
     </FormItem>
     <FormItem WrapperColOffset="6" WrapperColSpan="12">
-        <Button Type="ButtonType.Primary" HtmlType="submit" Loading="isLoading" Disabled="isLoading">
-            Tạo tài khoản
-        </Button>
+        @if (IsAdd)
+        {
+            <Button Type="ButtonType.Primary" HtmlType="submit" Loading="isLoading" Disabled="isLoading">
+                Tạo tài khoản
+            </Button>
+
+        }
+        else
+        {
+            <Button Type="ButtonType.Primary" HtmlType="submit" Loading="isLoading" Disabled="isLoading">
+                Cập nhật thông tin
+            </Button>
+        }
     </FormItem>
 </Form>

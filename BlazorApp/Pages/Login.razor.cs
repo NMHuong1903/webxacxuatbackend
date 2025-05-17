@@ -9,6 +9,7 @@ using AntDesign;
 using Microsoft.JSInterop;
 using System.Security.Claims;
 using BlazorApp.Components;
+using System.Collections.Generic;
 
 namespace BlazorApp.Pages
 {
@@ -49,10 +50,15 @@ namespace BlazorApp.Pages
                     var handler = new JwtSecurityTokenHandler();
                     var jwtToken = handler.ReadJwtToken(token);
                     var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub)?.Value;
+                    var userName = jwtToken.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.UniqueName)?.Value;
+                    var email = jwtToken.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Email)?.Value;
                     var fullName = jwtToken.Claims.FirstOrDefault(c => c.Type == "fullname")?.Value;
                     var role = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role || c.Type == "role")?.Value;
                     await JS.InvokeVoidAsync("sessionStorage.setItem", "token", token);
                     await JS.InvokeVoidAsync("sessionStorage.setItem", "userid", userId);
+                    await JS.InvokeVoidAsync("sessionStorage.setItem", "username", userName);
+                    await JS.InvokeVoidAsync("sessionStorage.setItem", "password", loginModel.Password);
+                    await JS.InvokeVoidAsync("sessionStorage.setItem", "email", email);
                     await JS.InvokeVoidAsync("sessionStorage.setItem", "fullname", fullName);
                     await JS.InvokeVoidAsync("sessionStorage.setItem", "role", role);
 
@@ -100,6 +106,11 @@ namespace BlazorApp.Pages
                 Message = "Đăng nhập không thành công. Tên đăng nhập và mật khẩu không hợp lệ.",
                 Duration = 2,
             });
+        }
+
+        private void OnClodeDrawer()
+        {
+            isAdd = false;
         }
     }
 }
