@@ -184,7 +184,7 @@ namespace WebAPI.Controllers
             {
                 var questions = await _questionRepository.GetAllAsync();
                 var question = questions.FirstOrDefault(q => q.Id == questionOptipnView.QuestionId);
-                if ( question == null)
+                if (question == null)
                 {
                     return NotFound(new { message = "Question not found" });
                 }
@@ -193,7 +193,7 @@ namespace WebAPI.Controllers
                 question.Unit = questionOptipnView.Unit;
                 question.Answer = questionOptipnView.Answer;
                 question.ImageUrl = questionOptipnView.ImageUrl;
-                question.ProbabilityOrStatistic = questionOptipnView.ProbabilityOrStatistic;             
+                question.ProbabilityOrStatistic = questionOptipnView.ProbabilityOrStatistic;
                 await _questionRepository.UpdateAsync(question);
                 foreach (var option in questionOptipnView.Options)
                 {
@@ -208,7 +208,7 @@ namespace WebAPI.Controllers
         }
 
         [Authorize(Policy = "Teacher")]
-        [HttpDelete("delete")]
+        [HttpDelete("delete/{questionId}")]
         public async Task<IActionResult> DeleteQuestion(Guid questionId)
         {
             try
@@ -222,13 +222,12 @@ namespace WebAPI.Controllers
                 }
                 await _questionRepository.DeleteAsync(question);
                 var questionOptions = options.Where(o => o.QuestionId == question.Id).ToList();
-                if (questionOptions.Count == 0)
+                if (questionOptions.Count > 0)
                 {
-                    return NotFound(new { message = "Options not found" });
-                }
-                foreach (var option in questionOptions)
-                {
-                    await _optionRepository.UpdateAsync(option);
+                    foreach (var option in questionOptions)
+                    {
+                        await _optionRepository.DeleteAsync(option);
+                    }
                 }
                 return Ok(new { message = "Question deleted successfully" });
             }
