@@ -133,6 +133,7 @@ namespace WebAPI.Controllers
             {
                 var question = new Question
                 {
+                    Id = questionOptipnView.QuestionId,
                     Content = questionOptipnView.Content,
                     Grade = questionOptipnView.Grade,
                     Unit = questionOptipnView.Unit,

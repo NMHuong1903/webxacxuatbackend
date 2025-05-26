@@ -15,6 +15,7 @@ namespace BlazorApp.Components
         [Parameter] public bool IsEdit { get; set; } = false;
         [Parameter] public bool IsAdd { get; set; } = false;
         //[Parameter] public UserAddEditModel userInDb { get; set; } = new UserAddEditModel();
+        [Parameter] public EventCallback OnSuccess { get; set; }
         [Parameter] public UserAddEditModel userAddEditModel { get; set; } = new UserAddEditModel();
         private string token = string.Empty;
         bool isLoading = false;
@@ -67,6 +68,7 @@ namespace BlazorApp.Components
                             Message = "Cập nhật thành công.",
                             Duration = 2,
                         });
+                        await OnSuccess.InvokeAsync();
                     }
                     else
                     {
@@ -108,6 +110,7 @@ namespace BlazorApp.Components
                             Duration = 2,
                         });
                         userAddEditModel = new UserAddEditModel();
+                        await OnSuccess.InvokeAsync();
                     }
                     else
                     {

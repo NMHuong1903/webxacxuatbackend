@@ -159,6 +159,15 @@ namespace BlazorApp.Pages
             isadd = true;
         }
 
+        private async Task OnAddEditSuccess()
+        {
+            await LoadData();
+
+            OnClodeDrawer();
+
+            StateHasChanged();
+        }
+
         private async Task OnDelete(QuestionOptionView context)
         {
             isLoading = true;
@@ -215,7 +224,6 @@ namespace BlazorApp.Pages
         {
             isadd = false;
             isedit = false;
-            row = new QuestionOptionView();
         }
 
         private async Task OnSelectGrade()

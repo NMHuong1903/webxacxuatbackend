@@ -13,7 +13,8 @@ namespace BlazorApp.Components
         [Inject] private HttpClient Http { get; set; } = default!;
         [Inject] private INotificationService _notification { get; set; } = default!;
         [Inject] private IJSRuntime JS { get; set; } = default!;
-        [Parameter] public QuestionOptionView questionOptionView { get; set; } 
+        [Parameter] public QuestionOptionView questionOptionView { get; set; }
+        [Parameter] public EventCallback OnSuccess { get; set; }
         public Dictionary<string, object> uploadProps { get; set; }
         public bool isLoading = false;
         [Parameter] public bool isAdd { get; set; } = false;
@@ -25,49 +26,55 @@ namespace BlazorApp.Components
             "Xác suất",
             "Thống kê",
         };
-        public Option trueOption { get; set; } 
-        public Option falseOption1 { get; set; }
-        public Option falseOption2 { get; set; }
-        public Option falseOption3 { get; set; }
 
         protected override async void OnInitialized()
         {
-            InitForm();
+            if (questionOptionView == null)
+            {
+                InitForm();
+            }
+            else
+            {
+                questionOptionView.Options = questionOptionView.Options.OrderByDescending(o => o.IsCorrect).ToList();
+            }
             await LoadToken();
         }
 
         private void InitForm()
         {
-            questionOptionView ??= new QuestionOptionView
+            questionOptionView = new QuestionOptionView
             {
                 QuestionId = Guid.NewGuid(),
-                Options = new List<Option>()
             };
+            questionOptionView.Options =
+                new List<Option>
+                    {
+                        new Option
+                        {
+                            Id = Guid.NewGuid(),
+                            IsCorrect = true,
+                            QuestionId = questionOptionView.QuestionId
+                        },
+                        new Option
+                        {
+                            Id = Guid.NewGuid(),
+                            IsCorrect = false,
+                            QuestionId = questionOptionView.QuestionId
+                        },
+                        new Option
+                        {
+                            Id = Guid.NewGuid(),
+                            IsCorrect = false,
+                            QuestionId = questionOptionView.QuestionId
+                        },
+                        new Option
+                        {
+                            Id = Guid.NewGuid(),
+                            IsCorrect = false,
+                            QuestionId = questionOptionView.QuestionId
+                        }
 
-            trueOption = new Option
-            {
-                Id = Guid.NewGuid(),
-                IsCorrect = true,
-                QuestionId = questionOptionView.QuestionId
-            };
-            falseOption1 = new Option
-            {
-                Id = Guid.NewGuid(),
-                IsCorrect = false,
-                QuestionId = questionOptionView.QuestionId
-            };
-            falseOption2 = new Option
-            {
-                Id = Guid.NewGuid(),
-                IsCorrect = false,
-                QuestionId = questionOptionView.QuestionId
-            };
-            falseOption3 = new Option
-            {
-                Id = Guid.NewGuid(),
-                IsCorrect = false,
-                QuestionId = questionOptionView.QuestionId
-            };
+                };
             uploadProps = new Dictionary<string, object>
             {
                 { "questionId", questionOptionView.QuestionId }
@@ -116,10 +123,6 @@ namespace BlazorApp.Components
                 {
                     var UserId = await JS.InvokeAsync<Guid>("sessionStorage.getItem", "userid");
                     questionOptionView.CreateBy = UserId;
-                    questionOptionView.Options.Add(trueOption);
-                    questionOptionView.Options.Add(falseOption1);
-                    questionOptionView.Options.Add(falseOption2);
-                    questionOptionView.Options.Add(falseOption3);
                     var response = await Http.PostAsJsonAsync("https://localhost:7247/api/Question/add", questionOptionView);
                     if (response.IsSuccessStatusCode)
                     {
@@ -129,8 +132,8 @@ namespace BlazorApp.Components
                             Message = "Thêm câu hỏi thành công",
                             Duration = 2,
                         });
+                        await OnSuccess.InvokeAsync();
                         InitForm();
-                        StateHasChanged();
                     }
                     else
                     {
@@ -143,7 +146,6 @@ namespace BlazorApp.Components
                             Duration = 2,
                         });
                     }
-                    StateHasChanged();
                 }
                 catch (Exception ex)
                 {
@@ -174,6 +176,7 @@ namespace BlazorApp.Components
                             Message = "Cập nhật câu hỏi thành công",
                             Duration = 2,
                         });
+                        await OnSuccess.InvokeAsync();
                     }
                     else
                     {
@@ -186,7 +189,6 @@ namespace BlazorApp.Components
                             Duration = 2,
                         });
                     }
-                    StateHasChanged();
                 }
                 catch (Exception ex)
                 {
@@ -216,8 +218,8 @@ namespace BlazorApp.Components
         }
 
         private void OnSelectedType()
-        { 
-            if(!string.IsNullOrEmpty(selectedType))
+        {
+            if (!string.IsNullOrEmpty(selectedType))
             {
                 questionOptionView.ProbabilityOrStatistic = selectedType;
             }

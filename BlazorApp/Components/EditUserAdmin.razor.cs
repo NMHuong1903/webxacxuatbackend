@@ -13,6 +13,7 @@ namespace BlazorApp.Components
         [Inject] private IJSRuntime JS { get; set; } = default!;
         [Inject] private INotificationService _notification { get; set; } = default!;
         [Parameter] public User user { get; set; }
+        [Parameter] public EventCallback OnSuccess { get; set; }
         private string token = string.Empty;
         bool isLoading = false;
 
@@ -64,6 +65,7 @@ namespace BlazorApp.Components
                         Message = "Cập nhật thành công.",
                         Duration = 2,
                     });
+                    await OnSuccess.InvokeAsync();
                 }
                 else
                 {

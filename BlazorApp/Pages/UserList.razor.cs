@@ -148,6 +148,15 @@ namespace BlazorApp.Pages
             row = context;
         }
 
+        private async Task OnAddEditSuccess()
+        {
+            await LoadData();
+
+            OnClodeDrawer();
+
+            StateHasChanged();
+        }
+
         private async Task OnDelete(User context)
         {
             isLoading = true;

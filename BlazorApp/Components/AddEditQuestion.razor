@@ -4,7 +4,7 @@
       LabelColSpan="6"
       WrapperColSpan="12">
     <FormItem Label="Nội dung câu hỏi">
-        <Input @bind-Value="@questionOptionView.Content" Style="height:200px" Placeholder="Nhập nội dung câu hỏi"/>
+        <TextArea @bind-Value="@questionOptionView.Content" Rows="4" Placeholder="Nhập nội dung câu hỏi"/>
     </FormItem>
     <FormItem Label="Ảnh số liệu (nếu có)">
         <Upload Action="https://localhost:7247/api/Question/upload-image"
@@ -19,7 +19,10 @@
         </Upload>
     </FormItem>
     <FormItem Label="Lời giải">
-        <Input @bind-Value="@questionOptionView.Answer" Style="height:200px" Placeholder="Nhập lời giải" />
+        <TextArea 
+        @bind-Value="@questionOptionView.Answer"
+        Rows="4"
+        Placeholder="Nhập lời giải" />
     </FormItem>
     <FormItem Label="Khối">
         <Input @bind-Value="@questionOptionView.Grade" Placeholder="Nhập khối" />
@@ -31,24 +34,24 @@
         <Select DataSource="typeQuestion"
                 TItemValue="string"
                 TItem="string"
-                @bind-Value="selectedType"
-                OnSelectedItemChanged="OnSelectedType"
+                @bind-Value="@questionOptionView.ProbabilityOrStatistic"
+                @* OnSelectedItemChanged="OnSelectedType" *@
                 Placeholder="Chọn phần">
         </Select>
     </FormItem>
     <FormItem Label="Đáp án">
         <Space>
             <SpaceItem>
-                <Input @bind-Value="@trueOption.Content" Placeholder="Nhập đáp án đúng" />
+                <Input @bind-Value="@questionOptionView.Options[0].Content" Placeholder="Nhập đáp án đúng" />
             </SpaceItem>
             <SpaceItem>
-                <Input @bind-Value="@falseOption1.Content" Placeholder="Nhập đáp án sai thứ nhất" />
+                <Input @bind-Value="@questionOptionView.Options[1].Content" Placeholder="Nhập đáp án sai" />
             </SpaceItem>
             <SpaceItem>
-                <Input @bind-Value="@falseOption2.Content" Placeholder="Nhập đáp án sai thứ hai" />
+                <Input @bind-Value="@questionOptionView.Options[2].Content" Placeholder="Nhập đáp án sai" />
             </SpaceItem>
             <SpaceItem>
-                <Input @bind-Value="@falseOption3.Content" Placeholder="Nhập đáp án sai thứ ba" />
+                <Input @bind-Value="@questionOptionView.Options[3].Content" Placeholder="Nhập đáp án sai" />
             </SpaceItem>
         </Space>
     </FormItem>

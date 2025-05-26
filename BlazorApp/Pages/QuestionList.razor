@@ -85,10 +85,14 @@
             OnClose="OnClodeDrawer"
             Width="100%">
         <Template>
-            <AddEditQuestion @ref="addEditQuestion"
-                             isEdit="@true"
-                             questionOptionView="row">
-            </AddEditQuestion>
+            @if (isedit)
+            {
+                <AddEditQuestion @ref="addEditQuestion"
+                                 isEdit="@true"
+                                 OnSuccess="OnAddEditSuccess"
+                                 questionOptionView="row">
+                </AddEditQuestion>
+            }
         </Template>
     </Drawer>
     <Drawer Closable
@@ -98,6 +102,7 @@
             Width="100%">
         <Template>
             <AddEditQuestion @ref="addEditQuestion"
+                             OnSuccess="OnAddEditSuccess"
                              isAdd="@true">
             </AddEditQuestion>
         </Template>
