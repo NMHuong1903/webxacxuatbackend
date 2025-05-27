@@ -18,10 +18,11 @@ namespace BlazorApp.Pages
         [Inject] private IMessageService _message { get; set; } = default!;
         [Inject] private IJSRuntime JS { get; set; } = default!;
         [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+        [Parameter] public List<QuestionOptionView> selectedRows { get; set; } = new();
+        [Parameter] public EventCallback<List<QuestionOptionView>> SelectedRowsChanged { get; set; }
         private AddEditQuestion addEditQuestion;
         public List<QuestionOptionView> questionOptionViews { get; set; } = new();
         public List<QuestionOptionView> questionOptionViewPage { get; set; } = new();
-        public List<QuestionOptionView> selectedRows = new();
         public QuestionSearchModel questionSearchModel;
         public QuestionOptionView row { get; set; }
         public int TotalCount;
@@ -95,10 +96,10 @@ namespace BlazorApp.Pages
             };
         }
 
-        private Task OnSelectedRowsChanged(IEnumerable<QuestionOptionView> selected)
+        void OnSelectedRowsChanged(IEnumerable<QuestionOptionView> selected)
         {
             selectedRows = selected.ToList();
-            return Task.CompletedTask;
+            SelectedRowsChanged.InvokeAsync(selectedRows);
         }
 
 
@@ -258,5 +259,4 @@ namespace BlazorApp.Pages
             await LoadData();
         }
     }
-
 }

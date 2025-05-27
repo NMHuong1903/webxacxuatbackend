@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Shared.ModelView;
 using Shared.SearchModel;
 using Shared.ResponseModel;
+using Microsoft.Extensions.Options;
 
 namespace WebAPI.Controllers
 {
@@ -27,8 +28,30 @@ namespace WebAPI.Controllers
         {
             try
             {
+                List<QuestionOptionView> questionOptionViews = new List<QuestionOptionView>();
                 var questions = await _questionRepository.GetAllAsync();
-                return Ok(questions);
+                var options = await _optionRepository.GetAllAsync();
+                foreach (var question in questions)
+                {
+                    QuestionOptionView questionOptionView = new QuestionOptionView
+                    {
+                        QuestionId = question.Id,
+                        Content = question.Content,
+                        Grade = question.Grade,
+                        Unit = question.Unit,
+                        Answer = question.Answer,
+                        ImageUrl = question.ImageUrl,
+                        ProbabilityOrStatistic = question.ProbabilityOrStatistic,
+                        CreateBy = question.CreateBy,
+                        Options = options.Where(o => o.QuestionId == question.Id).ToList()
+                    };
+                    questionOptionViews.Add(questionOptionView);
+                }
+                return Ok(new QuestionResponseModel
+                {
+                    questionOptionViews = questionOptionViews,
+                    TotalCount = questionOptionViews.Count()
+                });
             }
             catch (Exception ex)
             {

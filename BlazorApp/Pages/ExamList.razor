@@ -1,3 +1,87 @@
-﻿@page "/examlist"
+﻿@using BlazorApp.Components
+@using Shared.ModelView
+
+@page "/examlist"
 
 <PageTitle>Quản lý đề thi</PageTitle>
+
+<div>
+    <Row Gutter="8" Style="margin-bottom: 8px">
+        <Col Span="24">
+        <Space>
+            <SpaceItem>
+                <Button Type="ButtonType.Primary" OnClick="OnAdd">Thêm</Button>
+            </SpaceItem>
+            <SpaceItem>
+                <Button Danger Disabled="@(!selectedRows.Any())" Onclick="OnDeleteSelected">Xóa</Button>
+            </SpaceItem>
+            <SpaceItem>
+                <Search Onsearch="OnSelectName" @bind-Value="selectedName" Placeholder="Nhập tên bài thi" EnterButton="true" />
+            </SpaceItem>
+        </Space>
+        </Col>
+    </Row>
+    <Row Gutter="8">
+        <Col Span="24">
+        <Table DataSource="@examViewPage"
+               TItem="ExamView"
+               Bordered
+               Total="TotalCount"
+               PageIndex="examSearchModel.pageIndex"
+               PageSize="8"
+               OnChange="OnChange"
+               SelectedRows="selectedRows"
+               SelectedRowsChanged="OnSelectedRowsChanged">
+            <ColumnDefinitions>
+                <Selection Key="@context.ExamId.ToString()" />
+                <Column @bind-Field="@context.Name" Title="Tên bài thi" Width="120px" Ellipsis="true" EllipsisShowTitle="true"></Column>
+                <Column @bind-Field="@context.Duration" Title="Thời gian làm bài" Width="120px"></Column>
+                <Column @bind-Field="@context.TotalQuestions" Title="Tổng số câu hỏi" Width="120px"></Column>
+                <Column @bind-Field="@context.CreatedAt" Title="Thời gian tạo" Width="120px"></Column>
+                <ActionColumn Title="Thao tác" Width="120px">
+                    <Space>
+                        <SpaceItem>
+                            <Button Type="ButtonType.Text" OnClick="() => OnEdit(context)">
+                                <Icon Type="info-circle" Theme="IconThemeType.Outline" />
+                            </Button>
+                        </SpaceItem>
+                        <SpaceItem>
+                            <Button Danger Type="ButtonType.Text" OnClick="() => OnDelete(context)">
+                                <Icon Type="delete" Theme="IconThemeType.Outline" />
+                            </Button>
+                        </SpaceItem>
+                    </Space>
+                </ActionColumn>
+            </ColumnDefinitions>
+        </Table>
+        </Col>
+    </Row>
+    <Drawer Closable
+            Visible="isedit"
+            Title='("Thông tin bài thi")'
+            OnClose="OnClodeDrawer"
+            Width="100%">
+        <Template>
+            @if (isedit)
+            {
+                <AddEditExam @ref="addEditExam"
+                                 isEdit="@true"
+                                 OnSuccess="OnAddEditSuccess"
+                                 examView="row">
+                </AddEditExam>
+            }
+        </Template>
+    </Drawer>
+    <Drawer Closable
+            Visible="isadd"
+            Title='("Thêm bài thi")'
+            OnClose="OnClodeDrawer"
+            Width="100%">
+        <Template>
+            <AddEditExam @ref="addEditExam"
+                             OnSuccess="OnAddEditSuccess"
+                             isAdd="@true">
+            </AddEditExam>
+        </Template>
+    </Drawer>
+</div>
