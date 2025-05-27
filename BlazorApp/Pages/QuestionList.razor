@@ -18,9 +18,9 @@
             <SpaceItem>
                 <Search Onsearch="OnSelectContent" @bind-Value="selectedContent" Placeholder="Nhập nội dung" EnterButton="true" />
             </SpaceItem>
-            <SpaceItem>
+@*             <SpaceItem>
                 <Input OnPressEnter="OnSelectUnit" @bind-Value="selectedUnit" Placeholder="Nhập bài" />
-            </SpaceItem>
+            </SpaceItem> *@
             <SpaceItem>
                 <Select DataSource="typeQuestion"
                         TItemValue="string"
@@ -55,8 +55,8 @@
                SelectedRowsChanged="OnSelectedRowsChanged">
             <ColumnDefinitions>
                 <Selection Key="@context.QuestionId.ToString()" />
-                <Column @bind-Field="@context.Content" Title="Nội dung" Width="120px"></Column>
-                <Column @bind-Field="@context.Answer" Title="Lời giải" Width="120px"></Column>
+                <Column @bind-Field="@context.Content" Title="Nội dung" Width="120px" Ellipsis="true" EllipsisShowTitle="true"></Column>
+                <Column @bind-Field="@context.Answer" Title="Lời giải" Width="120px" Ellipsis="true" EllipsisShowTitle="true"></Column>
                 <Column @bind-Field="@context.ImageUrl" Title="Url ảnh(nếu có)" Width="120px"></Column>
                 <Column @bind-Field="@context.Grade" Title="Khối" Width="120px"></Column>
                 <Column @bind-Field="@context.Unit" Title="Bài" Width="120px"></Column>

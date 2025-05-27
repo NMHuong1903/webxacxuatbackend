@@ -4,6 +4,8 @@ using Shared.Models;
 using WebAPI.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Shared.ModelView;
+using Shared.ResponseModel;
+using Shared.SearchModel;
 
 namespace WebAPI.Controllers
 {
@@ -37,8 +39,66 @@ namespace WebAPI.Controllers
         }
 
         [Authorize(Policy = "Teacher")]
+        [HttpGet("get-page-data-with-filter")]
+        public async Task<IActionResult> GetPageDataExams(ExamSearchModel examSearchModel)
+        {
+            try
+            {
+                List<ExamView> examViews = new List<ExamView>();
+                var exams = await _examRepository.GetAllAsync();
+                if (!string.IsNullOrEmpty(examSearchModel.Name))
+                {
+                    exams = exams.Where(e => e.Name.Contains(examSearchModel.Name, StringComparison.OrdinalIgnoreCase)).ToList();
+                }
+                int totalCount = exams.Count;
+                int pageSize = 8;
+                exams = exams.Skip((examSearchModel.pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                foreach (var exam in exams)
+                {
+                    ExamView examView = new ExamView
+                    {
+                        ExamId = exam.Id,
+                        Name = exam.Name,
+                        Duration = exam.Duration,
+                        TotalQuestions = exam.TotalQuestions,
+                        CreateBy = exam.CreateBy,
+                        CreatedAt = exam.CreatedAt,
+                        Questions = new List<QuestionOptionView>()
+                    };
+                    foreach (var question in exam.Questions)
+                    {
+                        var options = await _optionRepository.GetAllAsync();
+                        var questionView = new QuestionOptionView
+                        {
+                            QuestionId = question.Id,
+                            Content = question.Content,
+                            Grade = question.Grade,
+                            Unit = question.Unit,
+                            ProbabilityOrStatistic = question.ProbabilityOrStatistic,
+                            Answer = question.Answer,
+                            ImageUrl = question.ImageUrl,
+                            CreateBy = question.CreateBy,
+                            Options = options.Where(o => o.QuestionId == question.Id).ToList()
+                        };
+                        examView.Questions.Add(questionView);
+                    }
+                    examViews.Add(examView);
+                }
+                return Ok(new ExamResponseModel
+                {
+                    TotalCount = totalCount,
+                    ExamViews = examViews
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [Authorize(Policy = "Teacher")]
         [HttpGet("get-by-id")]
-        public async Task<IActionResult> GetExamById([FromBody] Guid id)
+        public async Task<IActionResult> GetExamById(Guid id)
         {
             try
             {
@@ -91,16 +151,19 @@ namespace WebAPI.Controllers
             {
                 var exam = new Exam
                 {
+                    Id = examView.ExamId,
                     Name = examView.Name,
                     Duration = examView.Duration,
                     TotalQuestions = examView.TotalQuestions,
                     CreateBy = examView.CreateBy,
+                    CreatedAt = DateTime.UtcNow,
                     Questions = new List<Question>()
                 };
                 foreach (var questionView in examView.Questions)
                 {
                     var question = new Question
                     {
+                        Id = questionView.QuestionId,
                         Content = questionView.Content,
                         Grade = questionView.Grade,
                         Unit = questionView.Unit,
@@ -148,13 +211,13 @@ namespace WebAPI.Controllers
         }
 
         [Authorize(Policy = "Teacher")]
-        [HttpDelete("delete")]
-        public async Task<IActionResult> DeleteExam([FromBody] ExamView examView)
+        [HttpDelete("delete/{examId}")]
+        public async Task<IActionResult> DeleteExam(Guid examId)
         {
             try
             {
                 var exams = await _examRepository.GetAllAsync();
-                var exam = exams.FirstOrDefault(e => e.Id == examView.ExamId);
+                var exam = exams.FirstOrDefault(e => e.Id == examId);
                 if (exam == null)
                 {
                     return NotFound(new { message = "Exam not found" });

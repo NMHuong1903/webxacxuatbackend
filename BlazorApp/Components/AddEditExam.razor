@@ -1,0 +1,35 @@
+﻿@using BlazorApp.Pages
+
+<Form Model="examView"
+      OnFinish="OnFinish"
+      OnFinishFailed="OnFinishFailed"
+      LabelColSpan="6"
+      WrapperColSpan="12">
+    <FormItem Label="Nội dung câu hỏi">
+        <Input @bind-Value="@examView.Name" Placeholder="Nhập tên bài kiểm tra" />
+    </FormItem>
+    <FormItem Label="Thời gian làm bài">
+        <Input @bind-Value="@examView.Duration" Placeholder="Nhập thời gian làm bài" />
+    </FormItem>
+    <FormItem Label="Chọn câu hỏi">
+        <QuestionList @ref="questionList"
+                      selectedRows="@examView.Questions"
+                      SelectedRowsChanged="OnQuestionsChanged">
+        </QuestionList>
+    </FormItem>
+
+    <FormItem WrapperColOffset="6" WrapperColSpan="12">
+        @if (isAdd)
+        {
+            <Button Type="ButtonType.Primary" HtmlType="submit" Loading="isLoading" Disabled="isLoading">
+                Thêm bài kiểm tra
+            </Button>
+        }
+        else
+        {
+            <Button Type="ButtonType.Primary" HtmlType="submit" Loading="isLoading" Disabled="isLoading">
+                Cập nhật bài kiểm tra
+            </Button>
+        }
+    </FormItem>
+</Form>
