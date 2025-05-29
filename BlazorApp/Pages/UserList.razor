@@ -68,10 +68,13 @@
             OnClose="OnClodeDrawer"
             Width="600">
         <Template>
-            <EditUserAdmin @ref="editUserAdmin"
-                           OnSuccess="OnAddEditSuccess"
-                           user="row">
-            </EditUserAdmin>
+            @if (isedit)
+            {
+                <EditUserAdmin @ref="editUserAdmin"
+                               OnSuccess="OnAddEditSuccess"
+                               user="row">
+                </EditUserAdmin>
+            }
         </Template>
     </Drawer>
 </div>
