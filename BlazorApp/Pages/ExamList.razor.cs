@@ -30,6 +30,7 @@ namespace BlazorApp.Pages
         public bool isadd = false;
         public bool isedit = false;
         string selectedName = string.Empty;
+        private string role = "Student";
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -47,6 +48,7 @@ namespace BlazorApp.Pages
                         await LoadToken();
 
                         await LoadData();
+                        role = await JS.InvokeAsync<string>("sessionStorage.getItem", "role");
                     },
                     "Đang tải dữ liệu vui lòng đợi trong giây lát..."
                 );

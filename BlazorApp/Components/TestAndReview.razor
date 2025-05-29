@@ -1,0 +1,110 @@
+﻿@using BlazorApp.Components
+@using Shared.ModelView
+@using Shared.Models
+@inject HttpClient Http
+@inject INotificationService _notification
+@inject IMessageService _message
+@inject IJSRuntime JS
+
+@if (examView == null || examView.Questions == null)
+{
+    <p>Đang tải dữ liệu bài thi...</p>
+}
+else
+{
+    <div>
+        <Row Gutter="8">
+            <AntDesign.Col Span="24">
+                <h1 style="text-align:center">@examView.Name</h1>
+                @if (isSubmitted)
+                {
+                    <h3 style="font-weight: bold; color: #1890ff;">Điểm của bạn: @studentExam.Score/@examView.TotalQuestions</h3>
+                }
+                else
+                {
+                    <h3 style="text-align:center; color: red;">
+                        Thời gian còn lại: @TimeLeft.Hours.ToString("D2"):@TimeLeft.Minutes.ToString("D2"):@TimeLeft.Seconds.ToString("D2")
+                    </h3>
+                }
+                <hr style="border: none; border-top: 1px solid #eee; margin: 16px 0;" />
+            </AntDesign.Col>
+        </Row>
+        <Row Gutter="8">
+            <AntDesign.Col Span="24">
+                @for (int i = 0; i < examView.Questions.Count(); i++)
+                {
+                    var question = examView.Questions[i];
+                    var selectedOption = selectedOptions.FirstOrDefault(o => o.QuestionId == question.QuestionId);
+
+                    <p style="font-weight: bold;">Câu hỏi @((i + 1)):</p>
+                    <Row Gutter="8" Style="margin-bottom: 12px;">
+                        <AntDesign.Col Span="24">
+                            <p style="font-weight: bold;">@question.Content</p>
+                        </AntDesign.Col>
+                    </Row>
+
+                    @if (!string.IsNullOrEmpty(question.ImageUrl))
+                    {
+                        <Row Gutter="8" Style="margin-bottom: 12px;">
+                            <AntDesign.Col Span="24">
+                                <Image Src="@question.ImageUrl"
+                                       Style="max-width: 100%; border: 1px solid #eee; padding: 4px;" />
+                            </AntDesign.Col>
+                        </Row>
+                    }
+
+                    <Row Gutter="8" Style="margin-bottom: 16px;">
+                        <AntDesign.Col Span="24">
+                            <RadioGroup TValue="Guid"
+                                        Value="selectedOption?.Id ?? Guid.Empty"
+                                        ValueChanged="@(id => OnAnswerSelected(question.QuestionId, id))"
+                                        Disabled="isSubmitted"
+                                        Direction="Direction.Vertical"
+                                        Style="display: flex; flex-direction: column; gap: 8px;">
+                                @foreach (var option in question.Options)
+                                {
+                                    var isCorrect = option.IsCorrect;
+                                    var isChosen = selectedOption?.Id == option.Id;
+
+                                    string background = "";
+                                    if (isSubmitted)
+                                    {
+                                        if (isChosen && isCorrect)
+                                            background = "background-color: #d9f7be"; // xanh
+                                        else if (isChosen && !isCorrect)
+                                            background = "background-color: #ffa39e"; // đỏ
+                                        else if (!isChosen && isCorrect)
+                                            background = "background-color: #f6ffed"; // đúng nhưng không chọn
+                                    }
+
+                                    <Radio TValue="Guid" Value="@option.Id" Style="@background">
+                                        <span>@option.Content</span>
+                                    </Radio>
+                                }
+                            </RadioGroup>
+                        </AntDesign.Col>
+                    </Row>
+                    @if (isSubmitted && !string.IsNullOrEmpty(question.Answer))
+                    {
+                        <Row Gutter="8">
+                            <AntDesign.Col Span="24">
+                                <p style="font-weight: bold; color: #1890ff;">Lời giải:</p>
+                                <p>@question.Answer</p>
+                            </AntDesign.Col>
+                        </Row>
+                    }
+                    <hr style="border: none; border-top: 1px solid #eee; margin: 16px 0;" />
+                }
+            </AntDesign.Col>
+        </Row>
+
+        @if (!isSubmitted)
+        {
+            <Row Gutter="8" Style="margin-top: 16px;">
+                <AntDesign.Col Span="24" Style="text-align: center;">
+                    <Button Type="ButtonType.Primary" OnClick="SubmitExam">Nộp bài</Button>
+                </AntDesign.Col>
+            </Row>
+        }
+    </div>
+}

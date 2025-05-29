@@ -42,7 +42,7 @@ namespace WebAPI.Controllers
             }
         }
 
-        [Authorize(Policy = "Teacher")]
+        [Authorize(Policy = "Student")]
         [HttpPost("get-page-data-with-filter")]
         public async Task<IActionResult> GetPageDataExams([FromBody] ExamSearchModel examSearchModel)
         {
@@ -227,6 +227,7 @@ namespace WebAPI.Controllers
                 {
                     return NotFound(new { message = "Exam not found" });
                 }
+                exam.Questions.Clear();
                 await _examRepository.DeleteAsync(exam);
                 return Ok(new { message = "Exam deleted successfully" });
             }

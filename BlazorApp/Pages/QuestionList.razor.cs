@@ -20,6 +20,7 @@ namespace BlazorApp.Pages
         [Inject] private NavigationManager NavigationManager { get; set; } = default!;
         [Parameter] public List<QuestionOptionView> selectedRows { get; set; } = new();
         [Parameter] public EventCallback<List<QuestionOptionView>> SelectedRowsChanged { get; set; }
+        [Parameter] public bool isTeacher { get; set; } = true;
         private AddEditQuestion addEditQuestion;
         public List<QuestionOptionView> questionOptionViews { get; set; } = new();
         public List<QuestionOptionView> questionOptionViewPage { get; set; } = new();

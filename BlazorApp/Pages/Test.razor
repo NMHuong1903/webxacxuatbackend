@@ -5,70 +5,7 @@
 
 <PageTitle>Làm bài</PageTitle>
 
-@if (examView == null || examView.Questions == null)
-{
-    <p>Đang tải dữ liệu bài thi...</p>
-}
-else
-{
-    <div>
-        <Row Gutter="8">
-            <AntDesign.Col Span="24">
-                <h1 style="text-align:center">@examView.Name</h1>
-                <h3 style="text-align:center">Thời gian làm bài: @examView.Duration phút</h3>
-                <hr style="border: none; border-top: 1px solid #eee; margin: 16px 0;" />
-            </AntDesign.Col>
-        </Row>
-        <Row Gutter="8">
-            <AntDesign.Col Span="24">
-                @for (int i = 0; i < examView.Questions.Count(); i++)
-                {
-                    var question = examView.Questions[i];
-                    <p style="font-weight: bold;">Câu hỏi @((i + 1)):</p>
-                    <Row Gutter="8" Style="margin-bottom: 12px;">
-                        <AntDesign.Col Span="24">
-                            <p style="font-weight: bold;">@question.Content</p>
-                        </AntDesign.Col>
-                    </Row>
+<TestAndReview @ref="testAndReview">
 
-                    @if (!string.IsNullOrEmpty(question.ImageUrl))
-                    {
-                        <Row Gutter="8" Style="margin-bottom: 12px;">
-                            <AntDesign.Col Span="24">
-                                <Image Src="@question.ImageUrl"
-                                       Style="max-width: 100%; border: 1px solid #eee; padding: 4px;" />
-                            </AntDesign.Col>
-                        </Row>
-                    }
+</TestAndReview>
 
-                    <Row Gutter="8" Style="margin-bottom: 16px;">
-                        <AntDesign.Col Span="24">
-                        <RadioGroup TValue="Option"
-                                    Value="selectedOption"
-                                    ValueChanged="OnAnswerSelected"
-                                    Disabled="isSubmitted"
-                                    Direction="Direction.Vertical"
-                                    Style="display: flex; flex-direction: column; gap: 8px;">
-                                @foreach (var option in question.Options)
-                            {
-                                <Radio TValue="Option" Checked="option.Id == selectedOption?.Id" Value="option">
-                                    <span>@option.Content</span>
-                                </Radio>
-                            }
-                        </RadioGroup>
-                        </AntDesign.Col>
-                    </Row>
-                    <hr style="border: none; border-top: 1px solid #eee; margin: 16px 0;" />
-                }
-            </AntDesign.Col>
-        </Row>
-        @if (!isSubmitted)
-        {
-            <Row Gutter="8" Style="margin-top: 16px;">
-                <AntDesign.Col Span="24" Style="text-align: center;">
-                    <Button Type="ButtonType.Primary" OnClick="SubmitExam">Nộp bài</Button>
-                </AntDesign.Col>
-            </Row>
-        }
-    </div>
-}
