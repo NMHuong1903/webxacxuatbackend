@@ -9,8 +9,13 @@
         </Col>
         <Col Span="4" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
         <Menu Style="display: flex; flex-direction: row; flex-wrap: wrap;" Mode=MenuMode.Horizontal>
-            <SubMenu Key="sub10" Title="Ôn thi THPT">
-            </SubMenu>
+                @* <SubMenu Key="sub10" Title="Ôn thi THPT" OnTitleClick="OnClickOnThiTHPT">
+            </SubMenu> *@
+            <MenuItem Key="19">
+                <NavLink href="/onthithpt">
+                    Ôn thi THPT
+                </NavLink>
+            </MenuItem>
         </Menu>
         </Col>
         <Col Span="3" Style="display: flex; justify-content: center; align-items: center; padding-top: 20px;">
@@ -18,18 +23,26 @@
             <SubMenu Key="sub1" Title="Lớp 12">
                 <SubMenu Key="sub2" Title="Xác suất">
                     <MenuItem Key="6">
-                        Bài 1. Xác suất có điều kiện
+                        <Button Type="ButtonType.Text" OnClick='() => OnClickLuyenTap("Xác suất", 12, 1)'>
+                            Bài 1. Xác suất có điều kiện
+                        </Button>
                     </MenuItem>
                     <MenuItem Key="7">
-                        Bài 2. Công thức xác suất toàn phần 
+                        <Button Type="ButtonType.Text" OnClick='() => OnClickLuyenTap("Xác suất", 12, 2)'>
+                            Bài 2. Công thức xác suất toàn phần
+                        </Button>
                     </MenuItem>
                 </SubMenu>
                 <SubMenu Key="sub3" Title="Thống kê">
                     <MenuItem Key="8">
-                        Bài 1. Khoảng biến thiên và khoảng tứ phân vị
+                        <Button Type="ButtonType.Text" OnClick='() => OnClickLuyenTap("Thống kê", 12, 1)'>
+                            Bài 1. Khoảng biến thiên và khoảng tứ phân vị
+                        </Button>
                     </MenuItem>
                     <MenuItem Key="9">
-                        Bài 2.Phương sai và độ lệch chuẩn
+                        <Button Type="ButtonType.Text" OnClick='() => OnClickLuyenTap("Thống kê", 12, 2)'>
+                            Bài 2.Phương sai và độ lệch chuẩn
+                        </Button>
                     </MenuItem>
                 </SubMenu>
             </SubMenu>
@@ -40,21 +53,31 @@
             <SubMenu Key="sub4" Title="Lớp 11">
                 <SubMenu Key="sub5" Title="Xác suất">
                     <MenuItem Key="10">
-                        Bài 1. Biến cố hợp,biến cố giao,biến cố độc lập
+                        <Button Type="ButtonType.Text" OnClick='() => OnClickLuyenTap("Xác suất", 11, 1)'>
+                            Bài 1. Biến cố hợp,biến cố giao,biến cố độc lập
+                        </Button>
                     </MenuItem>
                     <MenuItem Key="11">
-                        Bài 2.Công thức cộng xác suất.
+                        <Button Type="ButtonType.Text" OnClick='() => OnClickLuyenTap("Xác suất", 11, 2)'>
+                            Bài 2.Công thức cộng xác suất
+                        </Button>
                     </MenuItem>
                     <MenuItem Key="12">
-                        Bài 3. Công thức nhân xác suất cho 2 biến cố độc lập
+                        <Button Type="ButtonType.Text" OnClick='() => OnClickLuyenTap("Xác suất", 11, 3)'>
+                            Bài 3. Công thức nhân xác suất cho 2 biến cố độc lập
+                        </Button>
                     </MenuItem>
                 </SubMenu>
                 <SubMenu Key="sub6" Title="Thống kê">
                     <MenuItem Key="13">
-                        Bài 1.Mẫu số liệu ghép nhóm
+                        <Button Type="ButtonType.Text" OnClick='() => OnClickLuyenTap("Thống kê", 11, 1)'>
+                            Bài 1.Mẫu số liệu ghép nhóm
+                        </Button>
                     </MenuItem>
                     <MenuItem Key="14">
-                        Bài 2.Các số đặc trưng đo xu thế trung tâm
+                        <Button Type="ButtonType.Text" OnClick='() => OnClickLuyenTap("Thống kê", 11, 2)'>
+                            Bài 2.Các số đặc trưng đo xu thế trung tâm
+                        </Button>
                     </MenuItem>
                 </SubMenu>
             </SubMenu>
@@ -65,18 +88,26 @@
             <SubMenu Key="sub7" Title="Lớp 10">
                 <SubMenu Key="sub8" Title="Xác suất">
                     <MenuItem Key="15">
-                        Bài 1.Không gian mẫu và biến cố
+                        <Button Type="ButtonType.Text" OnClick='() => OnClickLuyenTap("Xác suất", 10, 1)'>
+                            Bài 1.Không gian mẫu và biến cố
+                        </Button>
                     </MenuItem>
                     <MenuItem Key="16">
-                        Bài 2.Xác suất của biến cố
+                        <Button Type="ButtonType.Text" OnClick='() => OnClickLuyenTap("Xác suất", 10, 2)'>
+                            Bài 2.Xác suất của biến cố
+                        </Button>
                     </MenuItem>
                 </SubMenu>
                 <SubMenu Key="sub9" Title="Thống kê">
                     <MenuItem Key="17">
-                        Bài 1.Các số đặc trưng đo xu thế trung tâm của mẫu số liệu
+                        <Button Type="ButtonType.Text" OnClick='() => OnClickLuyenTap("Thống kê", 10, 1)'>
+                            Bài 1.Các số đặc trưng đo xu thế trung tâm của mẫu số liệu
+                        </Button>
                     </MenuItem>
                     <MenuItem Key="18">
-                        Bài 2.Các số đặc trưng đo độ phân tán của mẫu số liệu
+                        <Button Type="ButtonType.Text" OnClick='() => OnClickLuyenTap("Thống kê", 10, 2)'>
+                            Bài 2.Các số đặc trưng đo độ phân tán của mẫu số liệu
+                        </Button>
                     </MenuItem>
                 </SubMenu>
             </SubMenu>

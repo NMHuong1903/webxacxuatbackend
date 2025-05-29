@@ -12,6 +12,7 @@ namespace Shared.SearchModel
         public int Grade { get; set; }
         public int Unit { get; set; }
         public string ProbabilityOrStatistic { get; set; } = string.Empty;
-        public string Content { get; set; }
+        public string? Content { get; set; }
+        public int TotalCount { get; set; } = 0;
     }
 }

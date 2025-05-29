@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
             _optionRepository = optionRepository;
         }
 
-        [Authorize(Policy = "Teacher")]
+        [Authorize(Policy = "Student")]
         [HttpGet("get-all")]
         public async Task<IActionResult> GetAllQuestions()
         {
@@ -59,7 +59,7 @@ namespace WebAPI.Controllers
             }
         }
 
-        [Authorize(Policy = "Teacher")]
+        [Authorize(Policy = "Student")]
         [HttpPost("get-page-data-with-filter")]
         public async Task<IActionResult> GetPageDataQuestions(QuestionSearchModel questionSearchModel)
         {
@@ -87,6 +87,60 @@ namespace WebAPI.Controllers
                 var totalCount = questions.Count();
                 var pageSize = 8;
                 questions = questions.Skip((questionSearchModel.pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                foreach (var question in questions)
+                {
+                    QuestionOptionView questionOptionView = new QuestionOptionView
+                    {
+                        QuestionId = question.Id,
+                        Content = question.Content,
+                        Grade = question.Grade,
+                        Unit = question.Unit,
+                        Answer = question.Answer,
+                        ImageUrl = question.ImageUrl,
+                        ProbabilityOrStatistic = question.ProbabilityOrStatistic,
+                        CreateBy = question.CreateBy,
+                        Options = options.Where(o => o.QuestionId == question.Id).ToList()
+                    };
+                    questionOptionViews.Add(questionOptionView);
+                }
+                return Ok(new QuestionResponseModel
+                {
+                    questionOptionViews = questionOptionViews,
+                    TotalCount = totalCount
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [Authorize(Policy = "Student")]
+        [HttpPost("get-page-data-for-practice")]
+        public async Task<IActionResult> GetPracticeDataQuestions(QuestionSearchModel questionSearchModel)
+        {
+            try
+            {
+                List<QuestionOptionView> questionOptionViews = new List<QuestionOptionView>();
+                var options = await _optionRepository.GetAllAsync();
+                var questions = await _questionRepository.GetAllAsync();
+                if (questionSearchModel.Grade == 10 || questionSearchModel.Grade == 11 || questionSearchModel.Grade == 12)
+                {
+                    questions = questions.Where(q => q.Grade == questionSearchModel.Grade).ToList();
+                }
+                if (questionSearchModel.Unit > 0)
+                {
+                    questions = questions.Where(q => q.Unit == questionSearchModel.Unit).ToList();
+                }
+                if (!string.IsNullOrEmpty(questionSearchModel.ProbabilityOrStatistic))
+                {
+                    questions = questions.Where(q => q.ProbabilityOrStatistic == questionSearchModel.ProbabilityOrStatistic).ToList();
+                }
+                var totalCount = questions.Count();
+                var pageSize = questionSearchModel.TotalCount;
+                var rnd = new Random();
+                questions = questions.OrderBy(f => rnd.Next()).ToList();
+                questions = questions.Take(pageSize).ToList();
                 foreach (var question in questions)
                 {
                     QuestionOptionView questionOptionView = new QuestionOptionView

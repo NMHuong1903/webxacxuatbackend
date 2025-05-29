@@ -71,5 +71,18 @@ namespace BlazorApp.Layout
         {
             isEdit = false;
         }
+
+        private void OnClickOnThiTHPT()
+        {
+            NavigationManager.NavigateTo("/onthithpt");
+        }
+
+        public void OnClickLuyenTap(string type, int grade, int unit)
+        {
+            JS.InvokeVoidAsync("sessionStorage.setItem", "typeforpractice", type);
+            JS.InvokeVoidAsync("sessionStorage.setItem", "gradeforpractice", grade);
+            JS.InvokeVoidAsync("sessionStorage.setItem", "unitforpractice", unit);
+            NavigationManager.NavigateTo("/practice");
+        }
     }
 }

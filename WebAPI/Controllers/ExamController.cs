@@ -100,7 +100,7 @@ namespace WebAPI.Controllers
             }
         }
 
-        [Authorize(Policy = "Teacher")]
+        [Authorize(Policy = "Student")]
         [HttpGet("get-by-id/{id}")]
         public async Task<IActionResult> GetExamById(Guid id)
         {
@@ -147,7 +147,7 @@ namespace WebAPI.Controllers
             }
         }
 
-        [Authorize(Policy = "Teacher")]
+        [Authorize(Policy = "Student")]
         [HttpPost("add")]
         public async Task<IActionResult> AddExam([FromBody] ExamView examView)
         {
@@ -221,13 +221,15 @@ namespace WebAPI.Controllers
         {
             try
             {
-                var exams = await _examRepository.GetAllAsync();
+                var exams = await _context.Exams.Include(e => e.Questions).ToListAsync();
+                //var exams = await _examRepository.GetAllAsync();
                 var exam = exams.FirstOrDefault(e => e.Id == examId);
                 if (exam == null)
                 {
                     return NotFound(new { message = "Exam not found" });
                 }
                 exam.Questions.Clear();
+                await _context.SaveChangesAsync();
                 await _examRepository.DeleteAsync(exam);
                 return Ok(new { message = "Exam deleted successfully" });
             }

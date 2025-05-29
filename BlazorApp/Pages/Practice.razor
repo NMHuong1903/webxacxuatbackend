@@ -1,0 +1,25 @@
+﻿@page "/practice"
+
+<PageTitle>Luyện tập</PageTitle>
+
+<Form Model="examView"
+      OnFinish="OnFinish"
+      OnFinishFailed="OnFinishFailed"
+      LabelColSpan="6"
+      WrapperColSpan="12">
+    <FormItem Label="Nội dung câu hỏi">
+        <Input @bind-Value="@examView.Name" Placeholder="Nhập tên bài kiểm tra" Disabled />
+    </FormItem>
+    <FormItem Label="Thời gian làm bài">
+        <Input @bind-Value="@examView.Duration" Placeholder="Nhập thời gian làm bài" />
+    </FormItem>
+    <FormItem Label="Tổng số câu hỏi">
+        <Input @bind-Value="@examView.TotalQuestions" />
+    </FormItem>
+
+    <FormItem WrapperColOffset="6" WrapperColSpan="12">
+        <Button Type="ButtonType.Primary" HtmlType="submit" Loading="isLoading" Disabled="isLoading">
+            Luyện tập
+        </Button>
+    </FormItem>
+</Form>
