@@ -36,6 +36,10 @@ namespace BlazorApp.Components
             else
             {
                 questionOptionView.Options = questionOptionView.Options.OrderByDescending(o => o.IsCorrect).ToList();
+                uploadProps = new Dictionary<string, object>
+            {
+                { "questionId", questionOptionView.QuestionId }
+            };
             }
             await LoadToken();
         }

@@ -83,6 +83,8 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
+app.UseStaticFiles();
+
 // Use Middleware
 app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");

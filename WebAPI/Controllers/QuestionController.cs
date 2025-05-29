@@ -195,8 +195,9 @@ namespace WebAPI.Controllers
             var filePath = Path.Combine(folderPath, fileName);
             using var stream = new FileStream(filePath, FileMode.Create);
             await file.CopyToAsync(stream);
-
-            var url = $"/images/questions/{fileName}";
+            var baseUrl = $"{Request.Scheme}://{Request.Host}";
+            var url = $"{baseUrl}/images/questions/{fileName}";
+            //var url = $"/images/questions/{fileName}";
             return Ok(new { url });
         }
 

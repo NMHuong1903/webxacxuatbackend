@@ -18,7 +18,7 @@
             <SpaceItem>
                 <Search Onsearch="OnSelectContent" @bind-Value="selectedContent" Placeholder="Nhập nội dung" EnterButton="true" />
             </SpaceItem>
-@*             <SpaceItem>
+                @*             <SpaceItem>
                 <Input OnPressEnter="OnSelectUnit" @bind-Value="selectedUnit" Placeholder="Nhập bài" />
             </SpaceItem> *@
             <SpaceItem>
@@ -51,7 +51,7 @@
                PageIndex="questionSearchModel.pageIndex"
                PageSize="8"
                OnChange="OnChange"
-               SelectedRows="selectedRows" 
+               SelectedRows="selectedRows"
                SelectedRowsChanged="OnSelectedRowsChanged">
             <ColumnDefinitions>
                 <Selection />
@@ -101,10 +101,13 @@
             OnClose="OnClodeDrawer"
             Width="100%">
         <Template>
-            <AddEditQuestion @ref="addEditQuestion"
-                             OnSuccess="OnAddEditSuccess"
-                             isAdd="@true">
-            </AddEditQuestion>
+            @if (isadd)
+            {
+                <AddEditQuestion @ref="addEditQuestion"
+                                 OnSuccess="OnAddEditSuccess"
+                                 isAdd="@true">
+                </AddEditQuestion>
+            }
         </Template>
     </Drawer>
 </div>

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Shared.ModelView;
 using Shared.ResponseModel;
 using Shared.SearchModel;
+using WebAPI.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI.Controllers
 {
@@ -13,14 +15,16 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ExamController : ControllerBase
     {
+        private readonly DataDbContext _context;
         private readonly IGenericRepository<Exam> _examRepository;
         private readonly IGenericRepository<Question> _questionRepository;
         private readonly IGenericRepository<Option> _optionRepository;
-        public ExamController(IGenericRepository<Exam> examRepository, IGenericRepository<Question> questionRepository, IGenericRepository<Option> optionRepository)
+        public ExamController(IGenericRepository<Exam> examRepository, IGenericRepository<Question> questionRepository, IGenericRepository<Option> optionRepository, DataDbContext context)
         {
             _examRepository = examRepository;
             _questionRepository = questionRepository;
             _optionRepository = optionRepository;
+            _context = context;
         }
 
         [Authorize(Policy = "Teacher")]
@@ -97,12 +101,12 @@ namespace WebAPI.Controllers
         }
 
         [Authorize(Policy = "Teacher")]
-        [HttpGet("get-by-id")]
+        [HttpGet("get-by-id/{id}")]
         public async Task<IActionResult> GetExamById(Guid id)
         {
             try
             {
-                var exams = await _examRepository.GetAllAsync();
+                var exams = await _context.Exams.Include(e => e.Questions).ToListAsync();
                 var exam = exams.FirstOrDefault(e => e.Id == id);
                 if (exam == null)
                 {

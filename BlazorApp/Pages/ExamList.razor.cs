@@ -217,5 +217,11 @@ namespace BlazorApp.Pages
             await LoadToken();
             await LoadData();
         }
+
+        private async Task OnRowClick(ExamView context)
+        {
+            await JS.InvokeVoidAsync("sessionStorage.setItem", "examid", context.ExamId.ToString());
+            NavigationManager.NavigateTo("/test");
+        }
     }
 }
