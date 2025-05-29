@@ -37,7 +37,7 @@ namespace BlazorApp.Components
                 foreach (var question in examView.Questions)
                 {
                     questionOptionViews.Remove(question);
-                }
+        }
             }
         }
 
